@@ -1,4 +1,6 @@
-﻿namespace SeatManagementAPI
+﻿using SeatManagementAPI.Interfaces;
+
+namespace SeatManagementAPI
 {
     public class Repository<T> : IRepository<T> where T : class
     {

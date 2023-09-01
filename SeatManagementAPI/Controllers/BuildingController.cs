@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
 
@@ -10,27 +11,23 @@ namespace SeatManagementAPI.Controllers
     [ApiController]
     public class BuildingController : ControllerBase
     {
-        private readonly IRepository<Building> _buildingRepository;
+        private readonly IBuildingService _buildingService;
 
-        public BuildingController(IRepository<Building> buildingRepository)
+        public BuildingController(IBuildingService buildingService)
         {
-            _buildingRepository = buildingRepository;
+            _buildingService = buildingService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_buildingRepository.GetAll());
+            return Ok(_buildingService.GetAllBuildings());
         }
 
         [HttpPost]
         public IActionResult Add(BuildingDTO building)
         {
-            _buildingRepository.Add(new Building
-            {
-                BuildingName = building.BuildingName,
-                BuildingAbbreviation = building.BuildingAbbreviation
-            });
+            _buildingService.AddBuilding(building);
             return Ok();
         }
 
@@ -38,20 +35,13 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_buildingRepository.GetById(id));
+            return Ok(_buildingService.GetBuildingById(id));
         }
 
         [HttpPut]
         public IActionResult Edit(Building building)
         {
-            var originalBuilding = _buildingRepository.GetById(building.BuildingId);
-            if (originalBuilding == null) { return NotFound(); }
-
-            originalBuilding.BuildingName = building.BuildingName;
-            originalBuilding.BuildingAbbreviation = building.BuildingAbbreviation;
-
-            _buildingRepository.Update(originalBuilding);
-
+            _buildingService.EditBuilding(building);
             return Ok();
         }
 
@@ -59,7 +49,7 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult DeleteById(int id)
         {
-            _buildingRepository.DeleteById(id);
+            _buildingService.DeleteBuildingById(id);
             return Ok();
         }
     }

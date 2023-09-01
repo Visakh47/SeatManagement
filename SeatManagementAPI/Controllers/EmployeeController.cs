@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SeatManagementAPI.Models.DTO;
 using SeatManagementAPI.Models;
+using SeatManagementAPI.Interfaces;
 
 namespace SeatManagementAPI.Controllers
 {
@@ -9,25 +10,23 @@ namespace SeatManagementAPI.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly IRepository<Employee> _employeeRepository;
-        public EmployeeController(IRepository<Employee> employeeRepository)
+        private readonly IEmployeeService _employeeService;
+
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _employeeRepository = employeeRepository;
+            _employeeService = employeeService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_employeeRepository.GetAll());
+            return Ok(_employeeService.GetAllEmployees());
         }
 
         [HttpPost]
         public IActionResult Add(EmployeeDTO employee)
         {
-            _employeeRepository.Add(new Employee 
-            { EmployeeName = employee.EmployeeName, 
-                DepartmentId = employee.DepartmentId, 
-               isAllocated = false });
+            _employeeService.AddEmployee(employee);
             return Ok();
         }
 
@@ -35,31 +34,20 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_employeeRepository.GetById(id));
+            return Ok(_employeeService.GetEmployeeById(id));
         }
 
         [HttpPut]
         public IActionResult Edit(Employee employee)
         {
-            var originalEmployee = _employeeRepository.GetById(employee.EmployeeId);
-            if (originalEmployee == null)
-            {
-                return NotFound();
-            }
-
-            originalEmployee.EmployeeName = employee.EmployeeName;
-            originalEmployee.DepartmentId = employee.DepartmentId;
-            originalEmployee.isAllocated = employee.isAllocated;
-
-            _employeeRepository.Update(originalEmployee);
-
+            _employeeService.EditEmployee(employee);
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
-            _employeeRepository.DeleteById(id);
+            _employeeService.DeleteEmployeeById(id);
             return Ok();
         }
     }

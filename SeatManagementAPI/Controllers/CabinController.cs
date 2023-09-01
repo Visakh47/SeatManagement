@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
 
@@ -11,23 +12,23 @@ namespace SeatManagementAPI.Controllers
     [ApiController]
     public class CabinController : ControllerBase
     {
-        private readonly IRepository<Cabin> _cabinRepository;
+        private readonly ICabinService _cabinService;
 
-        public CabinController(IRepository<Cabin> cabinRepository)
+        public CabinController(ICabinService cabinService)
         {
-            _cabinRepository = cabinRepository;
+            _cabinService = cabinService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_cabinRepository.GetAll());
+            return Ok(_cabinService.GetAllCabins());
         }
 
         [HttpPost]
         public IActionResult Add(CabinDTO cabin)
         {
-            _cabinRepository.Add(new Cabin { CabinCode = cabin.CabinCode, EmployeeId = cabin.EmployeeId, FacilityId = cabin.FacilityId });
+            _cabinService.AddCabin(cabin);
             return Ok();
         }
 
@@ -35,28 +36,20 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_cabinRepository.GetById(id));
+            return Ok(_cabinService.GetCabinById(id));
         }
 
         [HttpPut]
         public IActionResult Edit(Cabin cabin)
         {
-            var originalCabin = _cabinRepository.GetById(cabin.FacilityId);
-            if (originalCabin == null) { return NotFound(); }
-
-            originalCabin.CabinCode = cabin.CabinCode;
-            originalCabin.EmployeeId = cabin.EmployeeId;
-            originalCabin.FacilityId = cabin.FacilityId;
-
-            _cabinRepository.Update(originalCabin);
-
+            _cabinService.EditCabin(cabin);
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
-            _cabinRepository.DeleteById(id);
+            _cabinService.DeleteById(id);
             return Ok();
         }
     }

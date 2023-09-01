@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SeatManagementAPI.Models.DTO;
 using SeatManagementAPI.Models;
+using SeatManagementAPI.Interfaces;
 
 namespace SeatManagementAPI.Controllers
 {
@@ -9,23 +10,23 @@ namespace SeatManagementAPI.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly IRepository<Department> _departmentRepository;
+        private readonly IDepartmentService _departmentService;
 
-        public DepartmentController(IRepository<Department> departmentRepository)
+        public DepartmentController(IDepartmentService departmentService)
         {
-            _departmentRepository = departmentRepository;
+            _departmentService = departmentService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_departmentRepository.GetAll());
+            return Ok(_departmentService.GetAllDepartments());
         }
 
         [HttpPost]
         public IActionResult Add(DepartmentDTO department)
         {
-            _departmentRepository.Add(new Department { DepartmentName = department.DepartmentName });
+            _departmentService.AddDepartment(department);
             return Ok();
         }
 
@@ -33,29 +34,20 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_departmentRepository.GetById(id));
+            return Ok(_departmentService.GetDepartmentById(id));
         }
 
         [HttpPut]
         public IActionResult Edit(Department department)
         {
-            var originalDepartment = _departmentRepository.GetById(department.DepartmentId);
-            if (originalDepartment == null)
-            {
-                return NotFound();
-            }
-
-            originalDepartment.DepartmentName = department.DepartmentName;
-
-            _departmentRepository.Update(originalDepartment);
-
+            _departmentService.EditDepartment(department);
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
-            _departmentRepository.DeleteById(id);
+            _departmentService.DeleteDepartmentById(id);
             return Ok();
         }
     }

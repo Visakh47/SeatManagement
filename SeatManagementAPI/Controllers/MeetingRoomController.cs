@@ -2,36 +2,31 @@
 using Microsoft.AspNetCore.Mvc;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
+using SeatManagementAPI.Interfaces;
 
 namespace SeatManagementAPI.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class MeetingRoomController : ControllerBase
     {
-        private readonly IRepository<MeetingRoom> _meetingRoomRepository;
+        private readonly IMeetingRoomService _meetingRoomService;
 
-        public MeetingRoomController(IRepository<MeetingRoom> meetingRoomRepository)
+        public MeetingRoomController(IMeetingRoomService meetingRoomService)
         {
-            _meetingRoomRepository = meetingRoomRepository;
+            _meetingRoomService = meetingRoomService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_meetingRoomRepository.GetAll());
+            return Ok(_meetingRoomService.GetAllMeetingRooms());
         }
 
         [HttpPost]
         public IActionResult Add(MeetingRoomDTO meetingRoom)
         {
-            _meetingRoomRepository.Add(new MeetingRoom
-            {
-                FacilityId = meetingRoom.FacilityId,
-                MeetingRoomCode = meetingRoom.MeetingRoomCode,
-                TotalSeats = meetingRoom.TotalSeats
-            });
+            _meetingRoomService.AddMeetingRoom(meetingRoom);
             return Ok();
         }
 
@@ -39,30 +34,21 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_meetingRoomRepository.GetById(id));
+            return Ok(_meetingRoomService.GetMeetingRoomById(id));
         }
 
         [HttpPut]
         public IActionResult Edit(MeetingRoom meetingRoom)
         {
-            var originalMeetingRoom = _meetingRoomRepository.GetById(meetingRoom.MeetingRoomId);
-            if (originalMeetingRoom == null) { return NotFound(); }
-
-            originalMeetingRoom.FacilityId = meetingRoom.FacilityId;
-            originalMeetingRoom.MeetingRoomCode = meetingRoom.MeetingRoomCode;
-            originalMeetingRoom.TotalSeats = meetingRoom.TotalSeats;
-
-            _meetingRoomRepository.Update(originalMeetingRoom);
-
+            _meetingRoomService.EditMeetingRoom(meetingRoom);
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
-            _meetingRoomRepository.DeleteById(id);
+            _meetingRoomService.DeleteMeetingRoomById(id);
             return Ok();
         }
     }
-
 }

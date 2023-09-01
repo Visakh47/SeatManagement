@@ -2,37 +2,31 @@
 using Microsoft.AspNetCore.Mvc;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
+using SeatManagementAPI.Interfaces;
 
 namespace SeatManagementAPI.Controllers
 {
-
-
     [Route("api/[controller]")]
     [ApiController]
     public class SeatController : ControllerBase
     {
-        private readonly IRepository<Seat> _seatRepository;
+        private readonly ISeatService _seatService;
 
-        public SeatController(IRepository<Seat> seatRepository)
+        public SeatController(ISeatService seatService)
         {
-            _seatRepository = seatRepository;
+            _seatService = seatService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_seatRepository.GetAll());
+            return Ok(_seatService.GetAllSeats());
         }
 
         [HttpPost]
         public IActionResult Add(SeatDTO seat)
         {
-            _seatRepository.Add(new Seat
-            {
-                FacilityId = seat.FacilityId,
-                SeatCode = seat.SeatCode,
-                EmployeeId = seat.EmployeeId
-            });
+            _seatService.AddSeat(seat);
             return Ok();
         }
 
@@ -40,30 +34,21 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_seatRepository.GetById(id));
+            return Ok(_seatService.GetSeatById(id));
         }
 
         [HttpPut]
         public IActionResult Edit(Seat seat)
         {
-            var originalSeat = _seatRepository.GetById(seat.SeatId);
-            if (originalSeat == null) { return NotFound(); }
-
-            originalSeat.FacilityId = seat.FacilityId;
-            originalSeat.SeatCode = seat.SeatCode;
-            originalSeat.EmployeeId = seat.EmployeeId;
-
-            _seatRepository.Update(originalSeat);
-
+            _seatService.EditSeat(seat);
             return Ok();
         }
 
         [HttpDelete]
         public IActionResult DeleteById(int id)
         {
-            _seatRepository.DeleteById(id);
+            _seatService.DeleteSeatById(id);
             return Ok();
         }
     }
-
 }

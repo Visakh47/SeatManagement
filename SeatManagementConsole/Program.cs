@@ -37,40 +37,34 @@ class Program
 
         //Thread.Sleep(500000);
 
-        Console.WriteLine("Welcome!");
+        //Console.WriteLine("Welcome!");
 
-        Console.WriteLine("1.Onboard A Facility");
+        //Console.WriteLine("1.Onboard A Facility");
 
-        Console.WriteLine("Onboarding Facility");
-        Console.WriteLine("Enter Details:");
-
-
-        //    public int CityId { get; set; }
-        //public int BuildingId { get; set; }
-        //public int FacilityFloor { get; set; }
-        //public string FacilityName { get; set; }
+        //Console.WriteLine("Onboarding Facility");
+        //Console.WriteLine("Enter Details:");
 
 
-        Console.WriteLine("Which City Does The Facility Belong To?");
-        //Display all cities
-        var cityId = Console.ReadLine();
-        Console.WriteLine("Which Building Does The Facility Belong To?");
-        var buildingId = Console.ReadLine();
-        Console.WriteLine("Which Floor hosts the Facility?");
-        var floorNumber = Console.ReadLine();
-        Console.WriteLine("What Is The Name Of The Facility?");
-        var facilityName = Console.ReadLine();
-        //Creating a Facility Object
+        //Console.WriteLine("Which City Does The Facility Belong To?");
+        ////Display all cities
+        //var cityId = Console.ReadLine();
+        //Console.WriteLine("Which Building Does The Facility Belong To?");
+        //var buildingId = Console.ReadLine();
+        //Console.WriteLine("Which Floor hosts the Facility?");
+        //var floorNumber = Console.ReadLine();
+        //Console.WriteLine("What Is The Name Of The Facility?");
+        //var facilityName = Console.ReadLine();
+        ////Creating a Facility Object
 
-        Facility facility = new Facility
-        { 
-            FacilityName = facilityName,
-            FacilityFloor = Convert.ToInt32(floorNumber),
-            BuildingId = Convert.ToInt32(buildingId),
-            CityId = Convert.ToInt32(cityId),
-        };
+        //Facility facility = new Facility
+        //{ 
+        //    FacilityName = facilityName,
+        //    FacilityFloor = Convert.ToInt32(floorNumber),
+        //    BuildingId = Convert.ToInt32(buildingId),
+        //    CityId = Convert.ToInt32(cityId),
+        //};
 
-        Console.WriteLine("How many no of seats do you need?");
+        //Console.WriteLine("How many no of seats do you need?");
 
         
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
 
@@ -9,23 +10,23 @@ namespace SeatManagementAPI.Controllers
     [ApiController]
     public class CityController : ControllerBase
     {
-        private readonly IRepository<City> _cityRepository;
+        private readonly ICityService _cityService;
 
-        public CityController(IRepository<City> cityRepository)
+        public CityController(ICityService cityService)
         {
-            _cityRepository = cityRepository;
+            _cityService = cityService;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            return Ok(_cityRepository.GetAll());
+            return Ok(_cityService.GetAllCities());
         }
 
         [HttpPost]
 
         public IActionResult Add(CityDTO city) {
-            _cityRepository.Add(new City { CityName = city.CityName, CityAbbreviation = city.CityAbbreviation });
+            _cityService.AddCity(city);
             return Ok();
         }
 
@@ -34,25 +35,18 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_cityRepository.GetById(id));
+            return Ok(_cityService.GetCityById(id));
         }
 
         [HttpPut]
         public IActionResult Edit(City city) {
-            var originalCity = _cityRepository.GetById(city.CityId);
-            if(originalCity == null) { return NotFound(); }
-
-            originalCity.CityName = city.CityName;
-            originalCity.CityAbbreviation = city.CityAbbreviation;
-
-            _cityRepository.Update(originalCity);
-
+            _cityService.EditCity(city);
             return Ok();
         }
 
         [HttpDelete]
-        public IActionResult DeleteById(int id) {  
-            _cityRepository.DeleteById(id);
+        public IActionResult DeleteById(int id) {
+            _cityService.DeleteCityById(id);
             return Ok(); 
         }
     }

@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using SeatManagementAPI;
+using SeatManagementAPI.Controllers;
+using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +28,19 @@ builder.Services.AddSingleton<IRepository<Facility>, Repository<Facility>>();
 builder.Services.AddSingleton<IRepository<MeetingRoom>, Repository<MeetingRoom>>();
 builder.Services.AddSingleton<IRepository<MeetingRoomAssets>, Repository<MeetingRoomAssets>>();
 builder.Services.AddSingleton<IRepository<Seat>, Repository<Seat>>();
+
+builder.Services.AddSingleton<IAssetService, AssetService>();
+builder.Services.AddSingleton<IBuildingService, BuildingService>();
+builder.Services.AddSingleton<ICabinService, CabinService>();
+builder.Services.AddSingleton<ICityService, CityService>();
+
+builder.Services.AddSingleton<IDepartmentService, DepartmentService>();
+builder.Services.AddSingleton<IEmployeeService, EmployeeService>();
+builder.Services.AddSingleton<IFacilityService, FacilityService>();
+builder.Services.AddSingleton<IMeetingRoomService, MeetingRoomService>();
+builder.Services.AddSingleton<IMeetingRoomAssetsService, MeetingRoomAssetsService>();
+builder.Services.AddSingleton<ISeatService, SeatService>();
+
 
 
 var app = builder.Build();

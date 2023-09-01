@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
 
@@ -9,23 +10,23 @@ namespace SeatManagementAPI.Controllers
         [ApiController]
         public class AssetController : ControllerBase
         {
-            private readonly IRepository<Asset> _assetRepository;
+            private readonly IAssetService _assetService;
 
-            public AssetController(IRepository<Asset> assetRepository)
+            public AssetController(IAssetService assetService)
             {
-                _assetRepository = assetRepository;
+                _assetService = assetService;
             }
 
             [HttpGet]
             public IActionResult Index()
             {
-                return Ok(_assetRepository.GetAll());
+                return Ok(_assetService.GetAllAssets());
             }
 
             [HttpPost]
             public IActionResult Add(AssetDTO asset)
             {
-                _assetRepository.Add(new Asset { AssetName = asset.AssetName });
+                _assetService.AddAsset(asset);
                 return Ok();
             }
 
@@ -33,26 +34,20 @@ namespace SeatManagementAPI.Controllers
             [Route("{id}")]
             public IActionResult GetById(int id)
             {
-                return Ok(_assetRepository.GetById(id));
+                return Ok(_assetService.GetAssetById(id));
             }
 
             [HttpPut]
             public IActionResult Edit(Asset asset)
             {
-                var originalAsset = _assetRepository.GetById(asset.AssetId);
-                if (originalAsset == null) { return NotFound(); }
-
-                originalAsset.AssetName = asset.AssetName;
-
-                _assetRepository.Update(originalAsset);
-
+                _assetService.EditAsset(asset);
                 return Ok();
             }
 
             [HttpDelete]
             public IActionResult DeleteById(int id)
             {
-                _assetRepository.DeleteById(id);
+                _assetService.DeleteAssetById(id);
                 return Ok();
             }
         }

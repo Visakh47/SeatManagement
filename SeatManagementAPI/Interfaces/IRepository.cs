@@ -1,4 +1,4 @@
-﻿namespace SeatManagementAPI
+﻿namespace SeatManagementAPI.Interfaces
 {
     public interface IRepository<T>
     {
