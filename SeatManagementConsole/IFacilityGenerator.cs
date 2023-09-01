@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SeatManagementConsole
 {
-    public interface IFacilityService
+    public interface IFacilityGenerator
     {
         public void OnBoardFacility(Facility facility);
     }

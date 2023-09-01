@@ -52,6 +52,22 @@ namespace SeatManagementAPI.Controllers
             _cabinService.DeleteById(id);
             return Ok();
         }
+
+        [HttpPut]
+        [Route("allocate")]
+        public IActionResult Allocate(int cabinId, int EmployeeId)
+        {
+            _cabinService.CabinAllocate(cabinId, EmployeeId);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("deallocate")]
+        public IActionResult Deallocate(int cabinId)
+        {
+            _cabinService.CabinDeallocate(cabinId);
+            return Ok();
+        }
     }
 
 }

@@ -25,7 +25,7 @@ public class SeatService : ISeatService
         {
             FacilityId = seat.FacilityId,
             SeatCode = seat.SeatCode,
-            EmployeeId = seat.EmployeeId
+            EmployeeId = null
         });
     }
 
@@ -56,4 +56,18 @@ public class SeatService : ISeatService
     {
         _seatRepository.DeleteById(id);
     }
+
+    public void SeatAllocate(int seatId, int employeeId)
+    {
+        var seat = _seatRepository.GetById(seatId);
+        seat.EmployeeId = employeeId;
+    }
+
+    public void SeatDeallocate(int seatId)
+    {
+        var seat = _seatRepository.GetById(seatId);
+        seat.EmployeeId = null;
+        seat.Employee = null;
+    }
+
 }

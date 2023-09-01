@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeatManagementAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +7,19 @@ using System.Threading.Tasks;
 
 namespace SeatManagementConsole
 {
-    public class SeatManager : IResourceManager
+    public class SeatManager<T>: IResourceManager<T> where T : class
     {
-        public void Add()
+        IAPIService SeatAPI;
+        public SeatManager(string apiEndPoint)
         {
-            throw new NotImplementedException();
+            SeatAPI = new APIService(apiEndPoint);
+        }
+        public async void Add(T entity)
+        {
+            await SeatAPI.Post(entity);
         }
 
-        public void Allocate()
+        public void Allocate(T entity)
         {
             throw new NotImplementedException();
         }

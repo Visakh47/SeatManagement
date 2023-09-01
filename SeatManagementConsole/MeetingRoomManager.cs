@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace SeatManagementConsole
 {
-    public class MeetingRoomManager : IResourceManager
+    public class MeetingRoomManager<T> : IResourceManager<T> where T : class
     {
-        public void Add()
+        IAPIService MeetingRoomAPI;
+        public MeetingRoomManager(string apiEndPoint)
         {
-            throw new NotImplementedException();
+            MeetingRoomAPI = new APIService(apiEndPoint);   
+        }
+        public async void Add(T entity)
+        {
+            await MeetingRoomAPI.Post(entity);
         }
 
-        public void Allocate()
+        public void Allocate(T entity)
         {
             throw new NotImplementedException();
         }

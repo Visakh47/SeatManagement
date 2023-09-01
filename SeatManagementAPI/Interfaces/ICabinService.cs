@@ -10,5 +10,8 @@ namespace SeatManagementAPI.Interfaces
         Cabin GetCabinById(int id);
         void EditCabin(Cabin cabin);
         void DeleteById(int id);
+        void CabinAllocate(int seatId, int employeeId);
+        void CabinDeallocate(int seatId);
+
     }
 }

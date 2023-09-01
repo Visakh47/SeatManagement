@@ -37,39 +37,103 @@ class Program
 
         //Thread.Sleep(500000);
 
-        //Console.WriteLine("Welcome!");
+        Console.WriteLine("Welcome!");
 
-        //Console.WriteLine("1.Onboard A Facility");
+        Console.WriteLine("1.Onboard A Facility");
 
-        //Console.WriteLine("Onboarding Facility");
-        //Console.WriteLine("Enter Details:");
+        Console.WriteLine("Onboarding Facility");
+        Console.WriteLine("Enter Details:");
 
 
-        //Console.WriteLine("Which City Does The Facility Belong To?");
-        ////Display all cities
-        //var cityId = Console.ReadLine();
-        //Console.WriteLine("Which Building Does The Facility Belong To?");
-        //var buildingId = Console.ReadLine();
-        //Console.WriteLine("Which Floor hosts the Facility?");
-        //var floorNumber = Console.ReadLine();
-        //Console.WriteLine("What Is The Name Of The Facility?");
-        //var facilityName = Console.ReadLine();
-        ////Creating a Facility Object
+        Console.WriteLine("Which City Does The Facility Belong To?");
+        //Display all cities
+        var cityId = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Which Building Does The Facility Belong To?");
+        //Display all builings
+        var buildingId = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Which Floor hosts the Facility?");
+        var floorNumber = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("What Is The Name Of The Facility?");
+        var facilityName = Console.ReadLine();
+        //Creating a Facility Object
 
-        //Facility facility = new Facility
-        //{ 
-        //    FacilityName = facilityName,
-        //    FacilityFloor = Convert.ToInt32(floorNumber),
-        //    BuildingId = Convert.ToInt32(buildingId),
-        //    CityId = Convert.ToInt32(cityId),
-        //};
+        Facility facility = new Facility
+        {
+            FacilityName = facilityName,
+            FacilityFloor = floorNumber,
+            BuildingId =buildingId,
+            CityId = cityId,
+        };
 
-        //Console.WriteLine("How many no of seats do you need?");
+        
+        
+
+        IFacilityGenerator facilityGenerator = new FacilityGenerator("Facility");
+        facilityGenerator.OnBoardFacility(facility);
 
         
 
+        Console.WriteLine("How many number of seats does the facility have?");
+        var totalSeats = Convert.ToInt32(Console.ReadLine());
+
+      
+        //Creating Bulk Seats
+
+        Console.WriteLine("Seats Creating!");
+
+        IResourceManager<Seat> seatManager = new SeatManager<Seat>("Seat");
+
+        for(int i = 1;i< totalSeats; i++) {
+            Seat emptySeat = new Seat
+            {
+                FacilityId = facility.FacilityId,
+                SeatCode = $"S{i:D3}"
+            };
+            seatManager.Add(emptySeat);
+        }
+
+        Console.WriteLine("How many number of cabins does the facility have?");
+        var totalCabins = Convert.ToInt32(Console.ReadLine());
 
 
+        Console.WriteLine("Cabins Creating!");
+
+        IResourceManager<Cabin> cabinManager = new CabinManager<Cabin>("Cabin");
+
+        for (int i = 1; i <= totalCabins; i++)
+        {
+            Cabin emptyCabin = new Cabin
+            {
+                FacilityId = facility.FacilityId,
+                CabinCode = $"C{i:D3}"
+            };
+            cabinManager.Add(emptyCabin);
+        }
+
+        Console.WriteLine("How many number of Meeting Rooms does the facility have?");
+        var totalMeetingRooms = Convert.ToInt32(Console.ReadLine());
+
+
+        Console.WriteLine("Meeting Rooms Creating!");
+
+        IResourceManager<MeetingRoom> meetingRoomManager = new MeetingRoomManager<MeetingRoom>("MeetingRoom");
+
+        for (int i = 1; i <= totalMeetingRooms; i++)
+        {
+            Console.WriteLine($"How many seats for M{i:D3}");
+            int meetingRoomSeatCapacity = Convert.ToInt32(Console.ReadLine());
+            MeetingRoom meetingRoom = new MeetingRoom
+            {
+                FacilityId = facility.FacilityId,
+                MeetingRoomCode = $"M{i:D3}",
+                TotalSeats = meetingRoomSeatCapacity
+            };
+            meetingRoomManager.Add(meetingRoom);
+        }
+
+        Console.WriteLine("Succesfully Created A New Facility!");
+
+        Console.ReadLine();
     }
 }
 

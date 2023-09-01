@@ -14,7 +14,7 @@ namespace SeatManagementAPI.Models
         public string SeatCode { get; set; }
 
         [ForeignKey("Seat-Employee")]
-        public int EmployeeId { get; set; }
+        public int? EmployeeId { get; set; }
 
         public virtual Facility Facility { get; set; }
 

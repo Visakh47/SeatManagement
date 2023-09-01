@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace SeatManagementConsole
 {
-    public class FacilityService : IFacilityService
+    public class FacilityGenerator : IFacilityGenerator
     {
         IAPIService FacilityAPI;
-        public FacilityService(string apiEndpoint) {
+        public FacilityGenerator(string apiEndpoint) {
             //Generating the API Service 
             FacilityAPI = new APIService(apiEndpoint);
         }
         public void OnBoardFacility(Facility facility)
         {
-            FacilityAPI.Post(facility);
+            FacilityAPI.Post(facility).Wait();
         }
     }
 }

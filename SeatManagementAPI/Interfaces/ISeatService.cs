@@ -8,4 +8,8 @@ public interface ISeatService
     Seat GetSeatById(int id);
     void EditSeat(Seat seat);
     void DeleteSeatById(int id);
+
+    void SeatAllocate(int seatId, int employeeId);
+    void SeatDeallocate(int seatId);
+
 }

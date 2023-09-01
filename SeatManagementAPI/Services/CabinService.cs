@@ -51,6 +51,19 @@ namespace SeatManagementAPI.Controllers
         {
             _cabinRepository.DeleteById(id);
         }
+
+        public void CabinAllocate(int cabinId, int employeeId)
+        {
+            var cabin = _cabinRepository.GetById(cabinId);
+            cabin.EmployeeId = employeeId;
+        }
+
+        public void CabinDeallocate(int cabinId)
+        {
+            var cabin = _cabinRepository.GetById(cabinId);
+            cabin.EmployeeId = null;
+            cabin.Employee = null;
+        }
     }
 
 }

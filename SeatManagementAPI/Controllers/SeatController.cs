@@ -50,5 +50,21 @@ namespace SeatManagementAPI.Controllers
             _seatService.DeleteSeatById(id);
             return Ok();
         }
+
+
+        [HttpPut]
+        [Route("/allocate")]
+        public IActionResult Allocate(int seatId, int EmployeeId) {
+            _seatService.SeatAllocate(seatId,EmployeeId);
+            return Ok();
+        }
+
+        [HttpPut]
+        [Route("/deallocate")]
+        public IActionResult Deallocate(int seatId)
+        {
+            _seatService.SeatDeallocate(seatId);
+            return Ok();
+        }
     }
 }

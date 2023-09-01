@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace SeatManagementConsole
 {
-    public class CabinManager : IResourceManager
+    public class CabinManager<T> : IResourceManager<T> where T:class
     {
-        public void Add()
+        IAPIService CabinAPI;
+        public CabinManager(string apiEndPoint)
         {
-            throw new NotImplementedException();
+            CabinAPI = new APIService(apiEndPoint);
+        }
+        public async void Add(T entity)
+        {
+            await CabinAPI.Post(entity);
         }
 
-        public void Allocate()
+        public void Allocate(T entity)
         {
             throw new NotImplementedException();
         }
