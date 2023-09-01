@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "UNXmSbKFZP3UB8+YpRvKv3IGGH61oUgC3kkr5hjWz3E=",
+  "Source": "SeatManagementAPI",
+  "BasePath": "_content/SeatManagementAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
