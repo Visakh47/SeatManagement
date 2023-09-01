@@ -2445,11 +2445,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\visakhbobby\\source\\repos\\SeatManagement\\SeatManagementAPI\\SeatManagementAPI.csproj",
+      "projectUniqueName": "C:\\Users\\visakhbobby\\Documents\\GitHub\\SeatManagement\\SeatManagementAPI\\SeatManagementAPI.csproj",
       "projectName": "SeatManagementAPI",
-      "projectPath": "C:\\Users\\visakhbobby\\source\\repos\\SeatManagement\\SeatManagementAPI\\SeatManagementAPI.csproj",
+      "projectPath": "C:\\Users\\visakhbobby\\Documents\\GitHub\\SeatManagement\\SeatManagementAPI\\SeatManagementAPI.csproj",
       "packagesPath": "C:\\Users\\visakhbobby\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\visakhbobby\\source\\repos\\SeatManagement\\SeatManagementAPI\\obj\\",
+      "outputPath": "C:\\Users\\visakhbobby\\Documents\\GitHub\\SeatManagement\\SeatManagementAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
