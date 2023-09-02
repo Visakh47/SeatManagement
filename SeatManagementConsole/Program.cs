@@ -2,6 +2,8 @@
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
 using SeatManagementConsole;
+using SeatManagementConsole.Interfaces;
+using SeatManagementConsole.Managers;
 using System;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
@@ -52,7 +54,6 @@ class Program
     public static void FacilitySetup(int facilityId) {
         Console.WriteLine($"{facilityId} created!"); //error here
 
-
         Console.WriteLine("How many number of seats does the facility have?");
         var totalSeats = Convert.ToInt32(Console.ReadLine());
 
@@ -60,7 +61,7 @@ class Program
 
         Console.WriteLine("Seats Creating!");
 
-        IResourceManager<Seat> seatManager = new SeatManager<Seat>("Seat");
+        IEntityManager<Seat> seatManager = new EntityManager<Seat>("Seat");
 
         for (int i = 1; i <= totalSeats; i++)
         {
@@ -78,7 +79,7 @@ class Program
 
         Console.WriteLine("Cabins Creating!");
 
-        IResourceManager<Cabin> cabinManager = new CabinManager<Cabin>("Cabin");
+        IEntityManager<Cabin> cabinManager = new EntityManager<Cabin>("Cabin");
 
         for (int i = 1; i <= totalCabins; i++)
         {
@@ -96,7 +97,7 @@ class Program
 
         Console.WriteLine("Meeting Rooms Creating!");
 
-        IResourceManager<MeetingRoom> meetingRoomManager = new MeetingRoomManager<MeetingRoom>("MeetingRoom");
+        IEntityManager<MeetingRoom> meetingRoomManager = new EntityManager<MeetingRoom>("MeetingRoom");
 
         for (int i = 1; i <= totalMeetingRooms; i++)
         {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SeatManagementConsole
+namespace SeatManagementConsole.Interfaces
 {
-    public interface IAPIService
+    public interface IAPIService<T>
     {
         Task<int?> Post<T>(T newObject);
         Task<List<T>> GetAll<T>();

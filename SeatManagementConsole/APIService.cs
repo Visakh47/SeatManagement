@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SeatManagementConsole.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SeatManagementConsole
 {
-    public class APIService : IAPIService
+    public class APIService<T> : IAPIService<T> where T : class
     {
         private readonly HttpClient client;
         public string baseUrl;
