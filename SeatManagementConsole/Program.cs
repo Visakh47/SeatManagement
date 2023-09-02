@@ -71,7 +71,8 @@ class Program
         IFacilityGenerator facilityGenerator = new FacilityGenerator("Facility");
         facilityGenerator.OnBoardFacility(facility);
 
-        
+        Console.WriteLine($"{facility.FacilityId} created!"); //error here
+
 
         Console.WriteLine("How many number of seats does the facility have?");
         var totalSeats = Convert.ToInt32(Console.ReadLine());
@@ -83,7 +84,7 @@ class Program
 
         IResourceManager<Seat> seatManager = new SeatManager<Seat>("Seat");
 
-        for(int i = 1;i< totalSeats; i++) {
+        for(int i = 1;i<= totalSeats; i++) {
             Seat emptySeat = new Seat
             {
                 FacilityId = facility.FacilityId,
