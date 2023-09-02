@@ -20,6 +20,11 @@ class Program
     {
         Console.WriteLine("Welcome!");
 
+        
+
+
+
+
         Console.WriteLine("1.Onboard A Facility");
 
         Console.WriteLine("Onboarding Facility");
@@ -141,12 +146,52 @@ class Program
 
         //Thread.Sleep(500000);
 
+        //Console.WriteLine("Enter An Employee Id:");
+        //var empId2 = Convert.ToInt32(Console.ReadLine());
+
+        //Console.WriteLine("Enter An Cabin Id:");
+        //var entityId2 = Convert.ToInt32(Console.ReadLine());
+
+        //IAllocationManager<Cabin> CabinAllocator = new AllocationManager<Cabin>("Cabin");
 
 
-        int facilityId = await CreateFacilityAsync();
 
-        FacilitySetup(facilityId);
-        
+        //CabinAllocator.Allocate(entityId2, empId2);
+
+        //Console.WriteLine("Successfully Allocated Cabin");
+
+        //Console.ReadLine();
+
+        //CabinAllocator.DeAllocate(entityId2);
+
+        //Console.WriteLine("Successfully Deallocated Cabin");
+
+        //Console.ReadLine();
+
+        Console.WriteLine("Enter An Employee Id:");
+        var empId = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Enter An Seat Id:");
+        var entityId = Convert.ToInt32(Console.ReadLine());
+
+        IAllocationManager<Seat> SeatAllocater = new AllocationManager<Seat>("Seat");
+
+
+
+        SeatAllocater.Allocate(entityId, empId);
+
+        Console.WriteLine("Successfully Allocated Seat");
+
+        Console.ReadLine();
+
+        SeatAllocater.DeAllocate(entityId);
+
+        Console.WriteLine("Successfully Deallocated Seat");
+
+
+        Console.ReadLine();
+
+
     }
 }
 

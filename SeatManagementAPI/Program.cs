@@ -1,3 +1,4 @@
+using AssetManagementAPI.ControllerServices;
 using Microsoft.EntityFrameworkCore;
 using SeatManagementAPI;
 using SeatManagementAPI.Controllers;
@@ -28,6 +29,8 @@ builder.Services.AddSingleton<IRepository<Facility>, Repository<Facility>>();
 builder.Services.AddSingleton<IRepository<MeetingRoom>, Repository<MeetingRoom>>();
 builder.Services.AddSingleton<IRepository<MeetingRoomAssets>, Repository<MeetingRoomAssets>>();
 builder.Services.AddSingleton<IRepository<Seat>, Repository<Seat>>();
+builder.Services.AddSingleton<IRepository<Overview>, Repository<Overview>>();
+builder.Services.AddSingleton<IRepository<UnAllocatedView>, Repository<UnAllocatedView>>();
 
 builder.Services.AddSingleton<IAssetService, AssetService>();
 builder.Services.AddSingleton<IBuildingService, BuildingService>();
@@ -40,6 +43,7 @@ builder.Services.AddSingleton<IFacilityService, FacilityService>();
 builder.Services.AddSingleton<IMeetingRoomService, MeetingRoomService>();
 builder.Services.AddSingleton<IMeetingRoomAssetsService, MeetingRoomAssetsService>();
 builder.Services.AddSingleton<ISeatService, SeatService>();
+builder.Services.AddSingleton<IReportService, ReportService>();
 
 
 

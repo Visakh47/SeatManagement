@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SeatManagementAPI;
 
@@ -11,9 +12,10 @@ using SeatManagementAPI;
 namespace SeatManagementAPI.Migrations
 {
     [DbContext(typeof(SeatManagementDbContext))]
-    partial class SeatManagementDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230902125043_empty")]
+    partial class empty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,34 +233,6 @@ namespace SeatManagementAPI.Migrations
                     b.ToTable("MeetingRoomAssets");
                 });
 
-            modelBuilder.Entity("SeatManagementAPI.Models.Overview", b =>
-                {
-                    b.Property<string>("BuildingAbbreviation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CityAbbreviation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FacilityFloor")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FacilityName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SeatCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToView("Overview");
-                });
-
             modelBuilder.Entity("SeatManagementAPI.Models.Seat", b =>
                 {
                     b.Property<int>("SeatId")
@@ -284,30 +258,6 @@ namespace SeatManagementAPI.Migrations
                     b.HasIndex("FacilityId");
 
                     b.ToTable("Seats");
-                });
-
-            modelBuilder.Entity("SeatManagementAPI.Models.UnAllocatedView", b =>
-                {
-                    b.Property<string>("BuildingAbbreviation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CityAbbreviation")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FacilityFloor")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FacilityName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SeatCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.ToView("UnAllocated");
                 });
 
             modelBuilder.Entity("SeatManagementAPI.Models.Cabin", b =>

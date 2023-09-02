@@ -56,6 +56,7 @@ namespace SeatManagementAPI.Controllers
         {
             var cabin = _cabinRepository.GetById(cabinId);
             cabin.EmployeeId = employeeId;
+            _cabinRepository.Update(cabin);
         }
 
         public void CabinDeallocate(int cabinId)
@@ -63,6 +64,7 @@ namespace SeatManagementAPI.Controllers
             var cabin = _cabinRepository.GetById(cabinId);
             cabin.EmployeeId = null;
             cabin.Employee = null;
+            _cabinRepository.Update(cabin);
         }
 
         public void AddManyCabins(int totalCabins, int facilityId)

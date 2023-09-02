@@ -63,6 +63,7 @@ public class SeatService : ISeatService
     {
         var seat = _seatRepository.GetById(seatId);
         seat.EmployeeId = employeeId;
+        _seatRepository.Update(seat);
     }
 
     public void SeatDeallocate(int seatId)
@@ -70,6 +71,7 @@ public class SeatService : ISeatService
         var seat = _seatRepository.GetById(seatId);
         seat.EmployeeId = null;
         seat.Employee = null;
+        _seatRepository.Update(seat);
     }
 
     public void AddManySeats(int totalSeats, int facilityId) {

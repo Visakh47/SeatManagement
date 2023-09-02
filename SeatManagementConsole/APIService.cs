@@ -137,13 +137,9 @@ namespace SeatManagementConsole
 
                     HttpResponseMessage response = await client.PutAsync(baseUrl + apiEndpoint, content);
 
-                    if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                     {
-                        Console.WriteLine($"Created successfully.");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                    Console.WriteLine($"Created successfully.");
                     }
                 }
                 catch (Exception)
