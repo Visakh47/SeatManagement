@@ -19,9 +19,11 @@ namespace SeatManagementAPI.Controllers
                 return _assetRepository.GetAll();
             }
 
-            public void AddAsset(AssetDTO asset)
+            public int AddAsset(AssetDTO asset)
             {
-                _assetRepository.Add(new Asset { AssetName = asset.AssetName });
+                Asset a = new Asset { AssetName = asset.AssetName };
+                _assetRepository.Add(a);
+                return a.AssetId;
             }
 
             public Asset GetAssetById(int id)

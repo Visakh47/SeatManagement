@@ -7,7 +7,5 @@ namespace SeatManagementAPI.Models.DTO
         public int FacilityId { get; set; }
 
         public string CabinCode { get; set; }
-
-        public int EmployeeId { get; set; }
     }
 }

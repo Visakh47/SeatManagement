@@ -11,5 +11,7 @@
         void Update(T entity);
 
         void Add(T entity);
+
+        void AddMany(List<T> entity);
     }
 }

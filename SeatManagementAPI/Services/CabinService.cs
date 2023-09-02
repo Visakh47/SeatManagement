@@ -24,7 +24,7 @@ namespace SeatManagementAPI.Controllers
    
         public void AddCabin(CabinDTO cabin)
         {
-            _cabinRepository.Add(new Cabin { CabinCode = cabin.CabinCode, EmployeeId = cabin.EmployeeId, FacilityId = cabin.FacilityId });
+            _cabinRepository.Add(new Cabin { CabinCode = cabin.CabinCode, EmployeeId = null, FacilityId = cabin.FacilityId });
         }
 
 
@@ -63,6 +63,23 @@ namespace SeatManagementAPI.Controllers
             var cabin = _cabinRepository.GetById(cabinId);
             cabin.EmployeeId = null;
             cabin.Employee = null;
+        }
+
+        public void AddManyCabins(int totalCabins, int facilityId)
+        {
+            List<Cabin> emptyCabins = new List<Cabin>();
+            for (int i = 1; i <= totalCabins; i++)
+            {
+
+                Cabin emptyCabin = new Cabin
+                {
+                    FacilityId = facilityId,
+                    CabinCode = $"C{i:D3}"
+                };
+                emptyCabins.Add(emptyCabin);
+            }
+
+            _cabinRepository.AddMany(emptyCabins);
         }
     }
 

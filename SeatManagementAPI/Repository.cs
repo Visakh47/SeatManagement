@@ -17,6 +17,12 @@ namespace SeatManagementAPI
             context.SaveChanges();
         }
 
+        public void AddMany(List<T> entity)
+        {
+            context.Set<T>().AddRange(entity);
+            context.SaveChanges();
+        }
+
         public void DeleteById(int id)
         {
             var item = GetById(id);

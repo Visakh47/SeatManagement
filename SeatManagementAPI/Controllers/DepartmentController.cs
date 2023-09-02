@@ -26,8 +26,8 @@ namespace SeatManagementAPI.Controllers
         [HttpPost]
         public IActionResult Add(DepartmentDTO department)
         {
-            _departmentService.AddDepartment(department);
-            return Ok();
+            int id = _departmentService.AddDepartment(department);
+            return Ok(id);
         }
 
         [HttpGet]

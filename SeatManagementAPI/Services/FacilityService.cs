@@ -19,14 +19,17 @@ public class FacilityService : IFacilityService
     }
 
 
-    public void AddFacility(FacilityDTO facility)
+    public int AddFacility(FacilityDTO facility)
     {
-        _facilityRepository.Add(new Facility 
-        { FacilityName = facility.FacilityName, 
-          FacilityFloor = facility.FacilityFloor,
-          BuildingId = facility.BuildingId,
-          CityId = facility.CityId,
-        });
+        Facility fac = new Facility
+        {
+            FacilityName = facility.FacilityName,
+            FacilityFloor = facility.FacilityFloor,
+            BuildingId = facility.BuildingId,
+            CityId = facility.CityId,
+        };
+        _facilityRepository.Add(fac);
+        return fac.FacilityId;
     }
 
 

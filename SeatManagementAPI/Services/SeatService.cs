@@ -2,6 +2,7 @@
 using SeatManagementAPI.Models.DTO;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Interfaces;
+using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 public class SeatService : ISeatService
 {
@@ -27,6 +28,7 @@ public class SeatService : ISeatService
             SeatCode = seat.SeatCode,
             EmployeeId = null
         });
+        
     }
 
 
@@ -68,6 +70,22 @@ public class SeatService : ISeatService
         var seat = _seatRepository.GetById(seatId);
         seat.EmployeeId = null;
         seat.Employee = null;
+    }
+
+    public void AddManySeats(int totalSeats, int facilityId) {
+        List<Seat> emptySeats = new List<Seat>();
+        for (int i = 1; i <= totalSeats; i++)
+        {
+            
+            Seat emptySeat = new Seat
+            {
+                FacilityId = facilityId,
+                SeatCode = $"S{i:D3}"
+            };
+            emptySeats.Add(emptySeat);
+        }
+
+        _seatRepository.AddMany(emptySeats);
     }
 
 }

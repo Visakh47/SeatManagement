@@ -68,6 +68,14 @@ namespace SeatManagementAPI.Controllers
             _cabinService.CabinDeallocate(cabinId);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("addbatch")]
+        public IActionResult AddBatch(int totalCabins, int FacilityId)
+        {
+            _cabinService.AddManyCabins(totalCabins, FacilityId);
+            return Ok();
+        }
     }
 
 }

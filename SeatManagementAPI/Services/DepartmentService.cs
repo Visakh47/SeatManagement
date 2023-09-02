@@ -23,9 +23,11 @@ namespace SeatManagementAPI.Controllers
         }
 
       
-        public void AddDepartment(DepartmentDTO department)
+        public int AddDepartment(DepartmentDTO department)
         {
-            _departmentRepository.Add(new Department { DepartmentName = department.DepartmentName });
+            Department dept = new Department { DepartmentName = department.DepartmentName };
+            _departmentRepository.Add(dept);
+            return dept.DepartmentId;
         }
 
     

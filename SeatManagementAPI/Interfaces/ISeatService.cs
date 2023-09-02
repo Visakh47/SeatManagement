@@ -12,4 +12,6 @@ public interface ISeatService
     void SeatAllocate(int seatId, int employeeId);
     void SeatDeallocate(int seatId);
 
+    void AddManySeats(int totalSeats, int facilityId);
+
 }

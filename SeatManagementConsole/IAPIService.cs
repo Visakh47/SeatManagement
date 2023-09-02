@@ -8,8 +8,9 @@ namespace SeatManagementConsole
 {
     public interface IAPIService
     {
-        Task Post<T>(T newObject);
+        Task<int?> Post<T>(T newObject);
         Task<List<T>> GetAll<T>();
         Task<T> GetById<T>(int id);
+        Task Put<T>(T Object);
     }
 }

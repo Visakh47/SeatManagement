@@ -6,7 +6,7 @@ namespace SeatManagementAPI.Interfaces
     public interface IAssetService
     {
         Asset[] GetAllAssets();
-        void AddAsset(AssetDTO asset);
+        int AddAsset(AssetDTO asset);
 
         Asset GetAssetById(int id);
 

@@ -66,5 +66,12 @@ namespace SeatManagementAPI.Controllers
             _seatService.SeatDeallocate(seatId);
             return Ok();
         }
+
+        [HttpPost]
+        [Route("/addbatch")]
+        public IActionResult AddBatch(int totalSeats, int FacilityId) { 
+            _seatService.AddManySeats(totalSeats, FacilityId);
+            return Ok();
+        }
     }
 }
