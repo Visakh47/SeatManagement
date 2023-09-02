@@ -26,8 +26,8 @@ namespace SeatManagementAPI.Controllers
         [HttpPost]
 
         public IActionResult Add(CityDTO city) {
-            _cityService.AddCity(city);
-            return Ok();
+            int id = _cityService.AddCity(city);
+            return Ok(id);
         }
 
        

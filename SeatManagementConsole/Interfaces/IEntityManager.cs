@@ -8,7 +8,8 @@ namespace SeatManagementConsole.Interfaces
 {
     public interface IEntityManager<T>
     {
-        void Add(T entity);
+        Task<int> Add(T entity);
         Task<List<T>> GetAll();
+        void AddMany(int id, int no, string extension);
     }
 }

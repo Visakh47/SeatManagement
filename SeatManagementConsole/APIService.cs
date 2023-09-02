@@ -20,7 +20,47 @@ namespace SeatManagementConsole
             client = new HttpClient();
         }
 
-     
+        public async Task<int?> PostMany<T>(T newObject, string extension)
+        {
+            try
+            {
+                string jsonObject = JsonConvert.SerializeObject(newObject);
+
+                // StringContent -> HTTP Content as a string -> Creates an HTTP Format to store the jsonObject
+                // 3 params -> the json object, encoding to be used, content/type
+                StringContent content = new StringContent(jsonObject, System.Text.Encoding.UTF8, "application/json");
+
+                HttpResponseMessage response = await client.PostAsync(baseUrl + apiEndpoint + extension, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    try
+                    {
+                        string responseContent = await response.Content.ReadAsStringAsync();
+                        int? responseId = JsonConvert.DeserializeObject<int>(responseContent);
+                        Console.WriteLine($"Created successfully.");
+                        return responseId;
+                    }
+                    catch (Exception ex)
+                    {
+                        //if no Id Present.
+                        return null;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("An error occurred in API Configurations");
+                return null;
+            }
+
+        }
+
         public async Task<int?> Post<T>(T newObject)
         {
                 try

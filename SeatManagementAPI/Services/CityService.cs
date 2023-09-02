@@ -21,8 +21,10 @@ namespace SeatManagementAPI.Controllers
             return _cityRepository.GetAll();
         }
 
-        public void AddCity(CityDTO city) {
-            _cityRepository.Add(new City { CityName = city.CityName, CityAbbreviation = city.CityAbbreviation });
+        public int AddCity(CityDTO city) {
+            City c = new City { CityName = city.CityName, CityAbbreviation = city.CityAbbreviation };
+            _cityRepository.Add(c);
+            return c.CityId;
         }
 
 

@@ -6,7 +6,7 @@ namespace SeatManagementAPI.Interfaces
     public interface IBuildingService
     {
         Building[] GetAllBuildings();
-        void AddBuilding(BuildingDTO building);
+        int AddBuilding(BuildingDTO building);
 
         Building GetBuildingById(int id);
 

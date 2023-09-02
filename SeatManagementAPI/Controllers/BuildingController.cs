@@ -27,8 +27,8 @@ namespace SeatManagementAPI.Controllers
         [HttpPost]
         public IActionResult Add(BuildingDTO building)
         {
-            _buildingService.AddBuilding(building);
-            return Ok();
+            int id = _buildingService.AddBuilding(building);
+            return Ok(id);
         }
 
         [HttpGet]

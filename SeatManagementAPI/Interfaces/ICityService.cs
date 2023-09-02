@@ -8,7 +8,7 @@ namespace SeatManagementAPI.Interfaces
         void DeleteCityById(int id);
         void EditCity(City city);
         City GetCityById(int id);
-        void AddCity(CityDTO city);
+        int AddCity(CityDTO city);
         City[] GetAllCities();
     }
 }

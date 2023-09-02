@@ -22,13 +22,15 @@ namespace SeatManagementAPI.Controllers
         }
 
       
-        public void AddBuilding(BuildingDTO building)
+        public int AddBuilding(BuildingDTO building)
         {
-            _buildingRepository.Add(new Building
+            Building b = new Building
             {
                 BuildingName = building.BuildingName,
                 BuildingAbbreviation = building.BuildingAbbreviation
-            });
+            };
+            _buildingRepository.Add(b);
+            return b.BuildingId;
         }
 
  

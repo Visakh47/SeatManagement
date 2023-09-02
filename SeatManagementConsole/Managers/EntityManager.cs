@@ -15,14 +15,24 @@ namespace SeatManagementConsole.Managers
         {
             _entityAPICall = new APIService<T>(apiEndPoint);
         }
-        public async void Add(T entity)
+        public async Task<int> Add(T entity)
         {
-            await _entityAPICall.Post(entity);
+            return (int)await _entityAPICall.Post(entity);
         }
 
         public async Task<List<T>> GetAll()
         {
             return await _entityAPICall.GetAll<T>();
+        }
+
+        public async void AddMany(int id, int no,string extension)
+        {
+            Object parameters = new 
+            {
+                FacilityId = id,
+                TotalNo = no
+            };
+            await _entityAPICall.PostMany<Object>(parameters,extension);
         }
     }
 }
