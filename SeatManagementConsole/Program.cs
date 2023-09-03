@@ -27,27 +27,38 @@ class Program
         IEntityManager<Seat> seatManager = new EntityManager<Seat>("Seat");
         IEntityManager<Cabin> cabinManager = new EntityManager<Cabin>("Cabin");
         IEntityManager<Seat> meetingRoomManager = new EntityManager<Seat>("MeetingRoom");
+        IReportManager<UnAllocatedView> uaReportManager = new ReportManager<UnAllocatedView>("Report/deallocatedList");
+        IReportManager<Overview> aReportManager = new ReportManager<Overview>("Report/allocatedList");
         FacilityManagerView facilityManagerView = new FacilityManagerView(facilityManager);
         CityManagerView cityManagerView = new CityManagerView(cityManager);
         BuildingManagerView buildingManagerView = new BuildingManagerView(buildingManager);
         SeatManagerView seatManagerView = new SeatManagerView(seatManager);
         CabinManagerView cabinManagerView = new CabinManagerView(cabinManager);
         MeetingRoomManagerView meetingRoomManagerView = new MeetingRoomManagerView(meetingRoomManager);
+        IReportManagerView<UnAllocatedView> unAllocatedReportManagerView = new UnAllocatedReportManagerView<UnAllocatedView>(uaReportManager);
+        IReportManagerView<Overview> allocatedReportManagerView = new AllocatedReportManagerView<Overview>(aReportManager);
 
 
 
         IAllocationManager<Seat> seatAllocationManager = new AllocationManager<Seat>("Seat");
 
+        Console.WriteLine("Welcome!");
+        Console.WriteLine("---------------------------------------------------------");
+        Console.WriteLine("\t\tSEAT ALLOCATION SOFTWARE\t\t");
+        Console.WriteLine("---------------------------------------------------------\n\n");
+
         do
         {
 
-            Console.WriteLine("Welcome!");
-            Console.WriteLine("SEAT ALLOCATION SOFTWARE");
-            Console.WriteLine("--------------------------------------------------");
-            Console.WriteLine("MENU");
-            Console.WriteLine("1.Onboard Facility\n2.Onboard Seats\n3.Add Employees\n4.Seat Allocation\n5.Seat Deallocation\n6.Report Generation");
+
+            Console.WriteLine("***************************************************");
+            Console.WriteLine("                  MAIN MENU");
+            Console.WriteLine("***************************************************\n");
+            Console.WriteLine("1.Onboard Facility\n2.Onboard Seats\n3.Add Employees\n4.Seat Allocation\n5.Seat Deallocation\n6.Report Generation\n");
+            Console.WriteLine("***************************************************");
             Console.Write("Choose your option: ");
             int op1 = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("***************************************************");
 
             switch (op1)
             {
@@ -64,7 +75,8 @@ class Program
                 case 2:
                     {
                         //Have to create a input provider for this facilityId;
-                        int facilityId = 1;
+                        Console.Write("Enter a Facility Where You Wish To Onboard Seats?");
+                        int facilityId = Convert.ToInt32(Console.ReadLine());
                         seatManagerView.AddBulkSeatsView(facilityId);
                         break;
                     }
@@ -90,11 +102,18 @@ class Program
                 case 6:
                     {
                         //Have to create ReportManagerView
+                        unAllocatedReportManagerView.Display();
+                        allocatedReportManagerView.Display();
                         break;
                     }
 
 
             }
+
+            Console.WriteLine("***************************************************");
+            Console.WriteLine("\n\n\t\tGoing Back To Menu\n\n");
+            Console.WriteLine("***************************************************");
+
         } while (true);
 
         }

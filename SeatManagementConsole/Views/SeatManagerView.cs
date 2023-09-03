@@ -19,18 +19,19 @@ namespace SeatManagementConsole.Views
 
         public async void AddBulkSeatsView(int facilityId)
         {
-            Console.WriteLine("How many number of seats does the facility have?");
+            Console.Write("How many number of seats does the facility have: ");
             var totalSeats = Convert.ToInt32(Console.ReadLine());
+
             string extension = $"/addbatch?FacilityId={facilityId}&totalSeats={totalSeats}";
             seatManager.AddMany(extension);
         }
 
         public async void AllocateSeatView()
         {
-            Console.WriteLine("Enter An Employee Id:");
+            Console.Write("Enter An Employee Id: ");
             var empId = Convert.ToInt32(Console.ReadLine());
 
-            Console.WriteLine("Enter An Seat Id:");
+            Console.Write("Enter A Seat Id: ");
             var entityId = Convert.ToInt32(Console.ReadLine());
 
             IAllocationManager<Seat> SeatAllocater = new AllocationManager<Seat>("Seat");
@@ -40,7 +41,7 @@ namespace SeatManagementConsole.Views
 
         public async void DeAllocateSeatView()
         {
-            Console.WriteLine("Enter An Seat Id:");
+            Console.Write("Enter A Seat Id: ");
             var entityId = Convert.ToInt32(Console.ReadLine());
 
             IAllocationManager<Seat> SeatAllocater = new AllocationManager<Seat>("Seat");
