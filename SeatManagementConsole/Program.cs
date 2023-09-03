@@ -22,25 +22,26 @@ class Program
     public static async Task UI()
     {
         IFacilityManager facilityManager = new FacilityManager("Facility");
-        IEntityManager<City> cityManager = new EntityManager<City>("City");
-        IEntityManager<Building> buildingManager = new EntityManager<Building>("buildings");
         IEntityManager<Seat> seatManager = new EntityManager<Seat>("Seat");
         IEntityManager<Cabin> cabinManager = new EntityManager<Cabin>("Cabin");
+        IEntityManager<Employee> employeeManager = new EntityManager<Employee>("Employee");
         IEntityManager<Seat> meetingRoomManager = new EntityManager<Seat>("MeetingRoom");
+        
         IReportManager<UnAllocatedView> uaReportManager = new ReportManager<UnAllocatedView>("Report/deallocatedList");
         IReportManager<Overview> aReportManager = new ReportManager<Overview>("Report/allocatedList");
         FacilityManagerView facilityManagerView = new FacilityManagerView(facilityManager);
-        CityManagerView cityManagerView = new CityManagerView(cityManager);
-        BuildingManagerView buildingManagerView = new BuildingManagerView(buildingManager);
+
         SeatManagerView seatManagerView = new SeatManagerView(seatManager);
         CabinManagerView cabinManagerView = new CabinManagerView(cabinManager);
+        
+        EmployeeManagerView employeeManagerView = new EmployeeManagerView(employeeManager);
+
         MeetingRoomManagerView meetingRoomManagerView = new MeetingRoomManagerView(meetingRoomManager);
         IReportManagerView<UnAllocatedView> unAllocatedReportManagerView = new UnAllocatedReportManagerView<UnAllocatedView>(uaReportManager);
         IReportManagerView<Overview> allocatedReportManagerView = new AllocatedReportManagerView<Overview>(aReportManager);
 
 
 
-        IAllocationManager<Seat> seatAllocationManager = new AllocationManager<Seat>("Seat");
 
         Console.WriteLine("Welcome!");
         Console.WriteLine("---------------------------------------------------------");
@@ -83,7 +84,7 @@ class Program
 
                 case 3:
                     {
-                        //have to create EmployeeManagerView
+                        employeeManagerView.CreateMultipleView();
                         break;
                     }
 
