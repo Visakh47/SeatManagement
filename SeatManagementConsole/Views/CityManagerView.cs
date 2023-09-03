@@ -22,7 +22,7 @@ namespace SeatManagementConsole.Views
             var cityId = 0; var buildingId = 0; 
             if (op2 == 1) 
             { 
-                var cityList = await cityManager.GetAll(); 
+                var cityList = cityManager.GetAll().Result; 
                 foreach (var city in cityList) 
                 { 
                     Console.WriteLine($"{city.CityId}. {city.CityName}");

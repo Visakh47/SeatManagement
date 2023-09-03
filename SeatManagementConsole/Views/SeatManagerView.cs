@@ -21,8 +21,8 @@ namespace SeatManagementConsole.Views
         {
             Console.WriteLine("How many number of seats does the facility have?");
             var totalSeats = Convert.ToInt32(Console.ReadLine());
-            string extension = "/addbatch";
-            seatManager.AddMany(facilityId, totalSeats, extension);
+            string extension = $"/addbatch?FacilityId={facilityId}&totalSeats={totalSeats}";
+            seatManager.AddMany(extension);
         }
 
         public async void AllocateSeatView()
@@ -34,7 +34,6 @@ namespace SeatManagementConsole.Views
             var entityId = Convert.ToInt32(Console.ReadLine());
 
             IAllocationManager<Seat> SeatAllocater = new AllocationManager<Seat>("Seat");
-
 
             SeatAllocater.Allocate(entityId, empId);
         }

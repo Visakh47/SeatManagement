@@ -19,18 +19,15 @@ namespace SeatManagementConsole.Managers
         }
         public async void Allocate(int entityId, int employeeId)
         {
-            T entity = await _allocationAPI.GetById<T>(entityId);
             string extension = $"/allocate?{_apiEndPoint.ToLower()}Id={entityId}&EmployeeId={employeeId}";
-            _allocationAPI = new APIService<T>(_apiEndPoint + extension);
-            await _allocationAPI.Put<T>(entity);
+            Console.WriteLine(extension);
+            _allocationAPI.PutWithExtension<T>(extension);
         }
 
         public async void DeAllocate(int entityId)
         {
-            T entity = await _allocationAPI.GetById<T>(entityId);
             string extension = $"/deallocate?{_apiEndPoint.ToLower()}Id={entityId}";
-            _allocationAPI = new APIService<T>(_apiEndPoint + extension);
-            await _allocationAPI.Put<T>(entity);
+            _allocationAPI.PutWithExtension<T>(extension);
         }
     }
 }

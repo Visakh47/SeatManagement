@@ -20,8 +20,8 @@ namespace SeatManagementConsole.Views
         }
         public async Task<int> CreateFacilityView() {
 
-            IEntityManager<City> cityManager = new EntityManager<City>("city");
-            IEntityManager<Building> buildingManager = new EntityManager<Building>("building");
+            IEntityManager<City> cityManager = new EntityManager<City>("City");
+            IEntityManager<Building> buildingManager = new EntityManager<Building>("buildings");
             CityManagerView cityManagerView = new CityManagerView(cityManager);
             BuildingManagerView buildingManagerView = new BuildingManagerView(buildingManager);
 
@@ -30,14 +30,16 @@ namespace SeatManagementConsole.Views
 
 
             Console.WriteLine("Which City Does The Facility Belong To?");
-            
+
             var cityId = await cityManagerView.CreateOrAddExistingCityView();
+
             Console.WriteLine("Which Building Does The Facility Belong To?");
 
             var buildingId = await buildingManagerView.CreateOrAddExistingBuildingView();
-            Console.WriteLine("Which Floor hosts the Facility?");
+
+            Console.Write("Which Floor hosts the Facility: ");
             var floorNumber = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("What Is The Name Of The Facility?");
+            Console.Write("What Is The Name Of The Facility: ");
             var facilityName = Console.ReadLine();
 
             Facility facility = new Facility

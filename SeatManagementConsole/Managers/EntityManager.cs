@@ -25,14 +25,9 @@ namespace SeatManagementConsole.Managers
             return await _entityAPICall.GetAll<T>();
         }
 
-        public async void AddMany(int id, int no,string extension)
+        public async void AddMany(string extension)
         {
-            Object parameters = new 
-            {
-                FacilityId = id,
-                TotalNo = no
-            };
-            await _entityAPICall.PostMany<Object>(parameters,extension);
+            _entityAPICall.PostWithExtension<T>(extension);
         }
     }
 }

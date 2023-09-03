@@ -9,10 +9,10 @@ namespace SeatManagementConsole.Interfaces
     public interface IAPIService<T>
     {
         Task<int?> Post<T>(T newObject);
-        Task<int?> PostMany<T>(T newObject, string extension);
+        void PostWithExtension<T>(string extension);
 
         Task<List<T>> GetAll<T>();
         Task<T> GetById<T>(int id);
-        Task Put<T>(T Object);
+        void PutWithExtension<T>(string extension);
     }
 }

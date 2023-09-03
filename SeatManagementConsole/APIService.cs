@@ -20,43 +20,26 @@ namespace SeatManagementConsole
             client = new HttpClient();
         }
 
-        public async Task<int?> PostMany<T>(T newObject, string extension)
+        public async void PostWithExtension<T>(string extension)
         {
             try
             {
-                string jsonObject = JsonConvert.SerializeObject(newObject);
-
-                // StringContent -> HTTP Content as a string -> Creates an HTTP Format to store the jsonObject
-                // 3 params -> the json object, encoding to be used, content/type
-                StringContent content = new StringContent(jsonObject, System.Text.Encoding.UTF8, "application/json");
-
-                HttpResponseMessage response = await client.PostAsync(baseUrl + apiEndpoint + extension, content);
+                HttpResponseMessage response = await client.PostAsync(baseUrl + apiEndpoint + extension, null);
 
                 if (response.IsSuccessStatusCode)
                 {
-                    try
-                    {
-                        string responseContent = await response.Content.ReadAsStringAsync();
-                        int? responseId = JsonConvert.DeserializeObject<int>(responseContent);
-                        Console.WriteLine($"Created successfully.");
-                        return responseId;
-                    }
-                    catch (Exception ex)
-                    {
-                        //if no Id Present.
-                        return null;
-                    }
+                    //Successful
                 }
                 else
                 {
                     Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
-                    return null;
+                    
                 }
             }
             catch (Exception)
             {
                 Console.WriteLine("An error occurred in API Configurations");
-                return null;
+           
             }
 
         }
@@ -164,22 +147,20 @@ namespace SeatManagementConsole
         }
 
         //Generic Put
-        public async Task Put<T>(T Object)
+        public async void PutWithExtension<T>(string extension)
         {
             
                 try
                 {
-                    string jsonObject = JsonConvert.SerializeObject(Object);
+                    HttpResponseMessage response = await client.PutAsync(baseUrl + apiEndpoint + extension, null);
 
-                    // StringContent -> HTTP Content as a string -> Creates an HTTP Format to store the jsonObject
-                    // 3 params -> the json object, encoding to be used, content/type
-                    StringContent content = new StringContent(jsonObject, System.Text.Encoding.UTF8, "application/json");
-
-                    HttpResponseMessage response = await client.PutAsync(baseUrl + apiEndpoint, content);
-
-                if (response.IsSuccessStatusCode)
+                    if (response.IsSuccessStatusCode)
                     {
-                    Console.WriteLine($"Created successfully.");
+                        //success
+                    }
+                    else 
+                    {
+                        Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
                     }
                 }
                 catch (Exception)
