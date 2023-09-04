@@ -48,6 +48,8 @@ public class EmployeeService : IEmployeeService
         }
 
         originalEmployee.EmployeeName = employee.EmployeeName;
+        originalEmployee.DepartmentId = employee.DepartmentId;
+        originalEmployee.isAllocated = employee.isAllocated;
 
         _employeeRepository.Update(originalEmployee);
     }

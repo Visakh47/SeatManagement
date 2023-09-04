@@ -15,6 +15,7 @@ namespace SeatManagementConsole.Managers
         {
             //Generating the API Service 
             _facilityAPI = new APIService<Facility>(apiEndpoint);
+
         }
 
         public async Task<List<Facility>> GetAllFacilities()

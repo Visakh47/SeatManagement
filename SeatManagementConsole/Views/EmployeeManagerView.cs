@@ -27,10 +27,52 @@ internal class EmployeeManagerView
         employeeManager.Add(employee);
     }
 
-    public async void CreateMultipleView() {
+    public void CreateMultipleView() {
         Console.WriteLine("How many Employees do you need: ");
         int no = Convert.ToInt32(Console.ReadLine());
         for (int i = 0; i < no; i++)
             CreateView();
+    }
+
+    public async Task ListUnAllocatedEmployeesView()
+    {
+        IEntityManager<Department> departmentManager = new EntityManager<Department>("Department");
+        await departmentManager.GetAll();
+        var employees = await employeeManager.GetAll();
+        Console.WriteLine($"| Employee ID | Employee Name | Department Name |");
+        foreach (var employee in employees)
+        {
+            if (!employee.isAllocated)
+            {
+                Console.WriteLine($"| {employee.EmployeeId} | {employee.EmployeeName} | {employee.Department.DepartmentName} |");
+            }
+        }
+    }
+
+    public async Task ListAllocatedEmployeesView()
+    {
+        IEntityManager<Department> departmentManager = new EntityManager<Department>("Department");
+        await departmentManager.GetAll();
+        var employees = await employeeManager.GetAll();
+        Console.WriteLine($"| Employee ID | Employee Name | Department Name |");
+        foreach (var employee in employees)
+        {
+            if (employee.isAllocated)
+            {
+                Console.WriteLine($"| {employee.EmployeeId} | {employee.EmployeeName} | {employee.Department.DepartmentName} |");
+            }
+        }
+    }
+
+    public async Task ListEmployeesView()
+    {
+        IEntityManager<Department> departmentManager = new EntityManager<Department>("Department");
+        departmentManager.GetAll();
+        var employees = await employeeManager.GetAll();
+        Console.WriteLine($"| Employee ID | Employee Name | Department Name |");
+        foreach (var employee in employees)
+        {
+            Console.WriteLine($"| {employee.EmployeeId} | {employee.EmployeeName} | {employee.Department.DepartmentName} |");
+        }
     }
 }

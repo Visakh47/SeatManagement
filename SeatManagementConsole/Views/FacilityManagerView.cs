@@ -3,6 +3,7 @@ using SeatManagementConsole.Interfaces;
 using SeatManagementConsole.Managers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace SeatManagementConsole.Views
     public class FacilityManagerView
     {
         IFacilityManager facilityManager;
-       
+
 
         public FacilityManagerView(IFacilityManager facilityManager)
         {
@@ -52,8 +53,21 @@ namespace SeatManagementConsole.Views
 
             return await facilityManager.OnBoardFacility(facility);
         }
-        public async void AllFacilitiesView() {
-            throw new NotImplementedException();
+        public async Task AllFacilitiesView()
+        {
+            IEntityManager<City> cityManager = new EntityManager<City>("City");
+            IEntityManager<Building> buildingManager = new EntityManager<Building>("buildings");
+            await buildingManager.GetAll();
+            await cityManager.GetAll();
+            Console.WriteLine("List of all Facilities:");
+            Console.WriteLine("\n| Facility ID | Facility Name | Facility Floor | City Name | Building Name |\n");
+            var facilities = await facilityManager.GetAllFacilities();
+
+            foreach (var facility in facilities)
+            {
+                Console.WriteLine($"\n| {facility.FacilityId} | {facility.FacilityName} | {facility.FacilityFloor} | {facility.City.CityName} | {facility.Building.BuildingName} |\n");
+            }
         }
     }
+    
 }

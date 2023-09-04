@@ -7,10 +7,12 @@ using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 public class SeatService : ISeatService
 {
     private readonly IRepository<Seat> _seatRepository;
+    private readonly IRepository<Employee> _employeeRepository;
 
-    public SeatService(IRepository<Seat> seatRepository)
+    public SeatService(IRepository<Seat> seatRepository, IRepository<Employee> employeeRepository)
     {
         _seatRepository = seatRepository;
+        _employeeRepository = employeeRepository;
     }
 
 
@@ -63,14 +65,26 @@ public class SeatService : ISeatService
     {
         var seat = _seatRepository.GetById(seatId);
         seat.EmployeeId = employeeId;
+        if (seat.Employee == null) { 
+            Employee e = _employeeRepository.GetById(employeeId);
+            seat.Employee = e;
+            seat.Employee.isAllocated = true;
+        }
         _seatRepository.Update(seat);
     }
 
     public void SeatDeallocate(int seatId)
     {
         var seat = _seatRepository.GetById(seatId);
-        seat.EmployeeId = null;
+        
+        if (seat.Employee != null)
+        {
+            Employee e = _employeeRepository.GetById(seat.Employee.EmployeeId);
+            seat.Employee = e;
+            seat.Employee.isAllocated = false;
+        }
         seat.Employee = null;
+        seat.EmployeeId = null;
         _seatRepository.Update(seat);
     }
 

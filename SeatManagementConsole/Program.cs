@@ -55,7 +55,7 @@ class Program
             Console.WriteLine("***************************************************");
             Console.WriteLine("                  MAIN MENU");
             Console.WriteLine("***************************************************\n");
-            Console.WriteLine("1.Onboard Facility\n2.Onboard Seats\n3.Add Employees\n4.Seat Allocation\n5.Seat Deallocation\n6.Report Generation\n");
+            Console.WriteLine("1.Onboard Facility\n2.Onboard Seats\n3.Add Employees\n4.Seat Allocation\n5.Seat Deallocation\n6.Cabin Allocation\n7.Cabin Deallocation\n8.Report Generation\n9. Exit\n");
             Console.WriteLine("***************************************************");
             Console.Write("Choose your option: ");
             int op1 = Convert.ToInt32(Console.ReadLine());
@@ -75,6 +75,7 @@ class Program
 
                 case 2:
                     {
+                        await facilityManagerView.AllFacilitiesView();
                         //Have to create a input provider for this facilityId;
                         Console.Write("Enter a Facility Where You Wish To Onboard Seats?");
                         int facilityId = Convert.ToInt32(Console.ReadLine());
@@ -90,21 +91,41 @@ class Program
 
                 case 4:
                     {
-                        seatManagerView.AllocateSeatView();
+                        await seatManagerView.AllocateSeatView();
                         break;
                     }
 
                 case 5:
                     {
-                        seatManagerView.DeAllocateSeatView();
+                        await seatManagerView.DeAllocateSeatView();
                         break;
                     }
 
-                case 6:
+                case 6: {
+                        await cabinManagerView.AllocateCabinView();
+                        break;
+                    }
+
+                case 7: {
+                        await cabinManagerView.DeAllocateCabinView();
+                        break;
+                    }
+
+                case 8:
                     {
-                        //Have to create ReportManagerView
-                        unAllocatedReportManagerView.Display();
-                        allocatedReportManagerView.Display();
+                        //unAllocatedReportManagerView.Display();
+                        //allocatedReportManagerView.Display();
+                        await unAllocatedReportManagerView.GenerateReport();
+                        break;
+                    }
+
+                case 9: {
+                        System.Environment.Exit(0);
+                        break;
+                    }
+
+                default: {
+                        Console.WriteLine("Break");
                         break;
                     }
 

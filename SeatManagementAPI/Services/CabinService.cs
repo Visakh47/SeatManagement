@@ -9,10 +9,12 @@ namespace SeatManagementAPI.Controllers
     public class CabinService : ICabinService
     {
         private readonly IRepository<Cabin> _cabinRepository;
+        private readonly IRepository<Employee> _employeeRepository;
 
-        public CabinService(IRepository<Cabin> cabinRepository)
+        public CabinService(IRepository<Cabin> cabinRepository, IRepository<Employee> employeeRepository)
         {
             _cabinRepository = cabinRepository;
+            _employeeRepository = employeeRepository;
         }
 
    
@@ -56,12 +58,24 @@ namespace SeatManagementAPI.Controllers
         {
             var cabin = _cabinRepository.GetById(cabinId);
             cabin.EmployeeId = employeeId;
+            if (cabin.Employee == null)
+            {
+                Employee e = _employeeRepository.GetById(employeeId);
+                cabin.Employee = e;
+                cabin.Employee.isAllocated = true;
+            }
             _cabinRepository.Update(cabin);
         }
 
         public void CabinDeallocate(int cabinId)
         {
             var cabin = _cabinRepository.GetById(cabinId);
+            if (cabin.Employee != null)
+            {
+                Employee e = _employeeRepository.GetById(cabin.Employee.EmployeeId);
+                cabin.Employee = e;
+                cabin.Employee.isAllocated = false;
+            }
             cabin.EmployeeId = null;
             cabin.Employee = null;
             _cabinRepository.Update(cabin);
