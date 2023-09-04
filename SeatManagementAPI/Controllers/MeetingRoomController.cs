@@ -26,8 +26,8 @@ namespace SeatManagementAPI.Controllers
         [HttpPost]
         public IActionResult Add(MeetingRoomDTO meetingRoom)
         {
-            _meetingRoomService.AddMeetingRoom(meetingRoom);
-            return Ok();
+            int id = _meetingRoomService.AddMeetingRoom(meetingRoom);
+            return Ok(id);
         }
 
         [HttpGet]

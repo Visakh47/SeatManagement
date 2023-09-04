@@ -19,14 +19,17 @@ public class MeetingRoomService : IMeetingRoomService
     }
 
   
-    public void AddMeetingRoom(MeetingRoomDTO meetingRoom)
+    public int AddMeetingRoom(MeetingRoomDTO meetingRoom)
     {
-        _meetingRoomRepository.Add(new MeetingRoom
+        MeetingRoom mr = new MeetingRoom
         {
             FacilityId = meetingRoom.FacilityId,
             MeetingRoomCode = meetingRoom.MeetingRoomCode,
             TotalSeats = meetingRoom.TotalSeats
-        });
+        };
+        _meetingRoomRepository.Add(mr);
+
+        return mr.MeetingRoomId;
     }
 
 

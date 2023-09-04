@@ -25,15 +25,17 @@ class Program
         IEntityManager<Seat> seatManager = new EntityManager<Seat>("Seat");
         IEntityManager<Cabin> cabinManager = new EntityManager<Cabin>("Cabin");
         IEntityManager<Employee> employeeManager = new EntityManager<Employee>("Employee");
-        IEntityManager<Seat> meetingRoomManager = new EntityManager<Seat>("MeetingRoom");
-        
+        IEntityManager<MeetingRoom> meetingRoomManager = new EntityManager<MeetingRoom>("MeetingRoom");
+        IEntityManager<Asset> assetManager = new EntityManager<Asset>("Asset");
+
         IReportManager<UnAllocatedView> uaReportManager = new ReportManager<UnAllocatedView>("Report/deallocatedList");
         IReportManager<Overview> aReportManager = new ReportManager<Overview>("Report/allocatedList");
         FacilityManagerView facilityManagerView = new FacilityManagerView(facilityManager);
 
         SeatManagerView seatManagerView = new SeatManagerView(seatManager);
         CabinManagerView cabinManagerView = new CabinManagerView(cabinManager);
-        
+        AssetManagerView assetManagerView = new AssetManagerView(assetManager);
+
         EmployeeManagerView employeeManagerView = new EmployeeManagerView(employeeManager);
 
         MeetingRoomManagerView meetingRoomManagerView = new MeetingRoomManagerView(meetingRoomManager);
@@ -43,7 +45,6 @@ class Program
 
 
 
-        Console.WriteLine("Welcome!");
         Console.WriteLine("---------------------------------------------------------");
         Console.WriteLine("\t\tSEAT ALLOCATION SOFTWARE\t\t");
         Console.WriteLine("---------------------------------------------------------\n\n");
@@ -69,7 +70,7 @@ class Program
                         int facilityId = await facilityManagerView.CreateFacilityView();
                         seatManagerView.AddBulkSeatsView(facilityId);
                         cabinManagerView.AddBulkCabinsView(facilityId);
-                        meetingRoomManagerView.AddBulkMeetingRoomView(facilityId);
+                        await meetingRoomManagerView.AddBulkMeetingRoomView(facilityId);
                         break;
                     }
 
@@ -113,8 +114,6 @@ class Program
 
                 case 8:
                     {
-                        //unAllocatedReportManagerView.Display();
-                        //allocatedReportManagerView.Display();
                         await unAllocatedReportManagerView.GenerateReportView();
                         break;
                     }
