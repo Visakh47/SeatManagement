@@ -2,5 +2,5 @@
 {
     void Display();
 
-    Task GenerateReport();
+    Task GenerateReportView();
 }

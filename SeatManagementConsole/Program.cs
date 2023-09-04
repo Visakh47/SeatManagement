@@ -115,7 +115,7 @@ class Program
                     {
                         //unAllocatedReportManagerView.Display();
                         //allocatedReportManagerView.Display();
-                        await unAllocatedReportManagerView.GenerateReport();
+                        await unAllocatedReportManagerView.GenerateReportView();
                         break;
                     }
 

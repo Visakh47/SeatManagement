@@ -22,7 +22,7 @@ public class UnAllocatedReportManagerView<T> : IReportManagerView<T>
         } 
     }
 
-    public async Task GenerateReport()
+    public async Task GenerateReportView()
     {
         
         var unAllocatedSeats = uaReportManager.GetAll().Result;

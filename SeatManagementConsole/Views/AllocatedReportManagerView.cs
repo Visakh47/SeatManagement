@@ -20,7 +20,7 @@ public class AllocatedReportManagerView<T> : IReportManagerView<T>
         }
     }
 
-    public Task GenerateReport()
+    public Task GenerateReportView()
     {
         throw new NotImplementedException();
     }
