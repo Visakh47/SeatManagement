@@ -20,7 +20,6 @@ namespace SeatManagementConsole.Managers
         public async void Allocate(int entityId, int employeeId)
         {
             string extension = $"/allocate?{_apiEndPoint.ToLower()}Id={entityId}&EmployeeId={employeeId}";
-            Console.WriteLine(extension);
             _allocationAPI.PutWithExtension<T>(extension);
         }
 
