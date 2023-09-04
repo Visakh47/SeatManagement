@@ -28,8 +28,10 @@ class Program
         IEntityManager<MeetingRoom> meetingRoomManager = new EntityManager<MeetingRoom>("MeetingRoom");
         IEntityManager<Asset> assetManager = new EntityManager<Asset>("Asset");
 
-        IReportManager<UnAllocatedView> uaReportManager = new ReportManager<UnAllocatedView>("Report/deallocatedList");
-        IReportManager<Overview> aReportManager = new ReportManager<Overview>("Report/allocatedList");
+        IReportManager<SeatUnAllocatedView> suaReportManager = new ReportManager<SeatUnAllocatedView>("Report/seatdeallocatedList");
+        IReportManager<SeatOverview> saReportManager = new ReportManager<SeatOverview>("Report/seatallocatedList");
+        IReportManager<CabinUnAllocatedView> cuaReportManager = new ReportManager<CabinUnAllocatedView>("Report/cabindeallocatedList");
+        IReportManager<CabinOverview> caReportManager = new ReportManager<CabinOverview>("Report/cabinallocatedList");
         FacilityManagerView facilityManagerView = new FacilityManagerView(facilityManager);
 
         SeatManagerView seatManagerView = new SeatManagerView(seatManager);
@@ -39,8 +41,8 @@ class Program
         EmployeeManagerView employeeManagerView = new EmployeeManagerView(employeeManager);
 
         MeetingRoomManagerView meetingRoomManagerView = new MeetingRoomManagerView(meetingRoomManager);
-        IReportManagerView<UnAllocatedView> unAllocatedReportManagerView = new UnAllocatedReportManagerView<UnAllocatedView>(uaReportManager);
-        IReportManagerView<Overview> allocatedReportManagerView = new AllocatedReportManagerView<Overview>(aReportManager);
+        IReportManagerView unAllocatedReportManagerView = new UnAllocatedReportManagerView(suaReportManager,cuaReportManager);
+        IReportManagerView allocatedReportManagerView = new AllocatedReportManagerView(saReportManager, caReportManager);
 
 
 

@@ -4,7 +4,10 @@ namespace SeatManagementAPI.Interfaces
 {
     public interface IReportService
     {
-        Overview[] GetAllocatedList();
-        UnAllocatedView[] GetUnAllocatedList();
+        SeatOverview[] GetSeatAllocatedList();
+        SeatUnAllocatedView[] GetSeatUnAllocatedList();
+
+        CabinOverview[] GetCabinAllocatedList();
+        CabinUnAllocatedView[] GetCabinUnAllocatedList();
     }
 }

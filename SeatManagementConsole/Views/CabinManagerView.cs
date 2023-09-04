@@ -21,8 +21,19 @@ internal class CabinManagerView
 
     public async Task AllocateCabinView()
     {
+        IReportManager<CabinUnAllocatedView> cuaReportManager = new ReportManager<CabinUnAllocatedView>("Report/cabindeallocatedList");
+        IReportManagerView unAllocatedReportManagerView = new UnAllocatedReportManagerView(null, cuaReportManager);
+        IEntityManager<Employee> employeeManager = new EntityManager<Employee>("Employee");
+        EmployeeManagerView employeeManagerView = new EmployeeManagerView(employeeManager);
+
+     
+        await employeeManagerView.ListUnAllocatedEmployeesView();
+
         Console.Write("Enter An Employee Id: ");
         var empId = Convert.ToInt32(Console.ReadLine());
+
+   
+        unAllocatedReportManagerView.DisplayCabin();
 
         Console.Write("Enter A Cabin Id: ");
         var entityId = Convert.ToInt32(Console.ReadLine());
@@ -34,7 +45,12 @@ internal class CabinManagerView
 
     public async Task DeAllocateCabinView()
     {
-        Console.Write("Enter A Seat Id: ");
+        IReportManager<CabinOverview> cuaReportManager = new ReportManager<CabinOverview>("Report/cabinallocatedList");
+        IReportManagerView allocatedReportManagerView = new AllocatedReportManagerView(null, cuaReportManager);
+
+        allocatedReportManagerView.DisplayCabin();
+
+        Console.Write("Enter A Cabin Id: ");
         var entityId = Convert.ToInt32(Console.ReadLine());
 
         IAllocationManager<Cabin> CabinAllocater = new AllocationManager<Cabin>("Cabin");

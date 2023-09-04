@@ -27,15 +27,22 @@ namespace SeatManagementAPI
         public DbSet<Cabin> Cabin { get; set; }
 
         public DbSet<Seat> Seats { get; set; }
-        public DbSet<Overview> Overviews { get; set; }
-        public DbSet<Overview> UnAllocatedViews { get; set; }
+        public DbSet<SeatOverview> SeatOverviews { get; set; }
+        public DbSet<SeatUnAllocatedView> SeatUnAllocatedViews { get; set; }
+
+        public DbSet<CabinOverview> CabinOverviews { get; set; }
+        public DbSet<CabinUnAllocatedView> CabinUnAllocatedViews { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<Overview>().ToView("Overview").HasNoKey();
+            modelBuilder.Entity<SeatOverview>().ToView("Overview").HasNoKey();
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<UnAllocatedView>().ToView("UnAllocatedView").HasNoKey();
+            modelBuilder.Entity<SeatUnAllocatedView>().ToView("UnAllocatedView").HasNoKey();
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CabinOverview>().ToView("CabinOverview").HasNoKey();
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CabinUnAllocatedView>().ToView("CabinUnAllocatedView").HasNoKey();
         }
     }
 }

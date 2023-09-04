@@ -29,8 +29,8 @@ namespace SeatManagementConsole.Views
 
         public async Task AllocateSeatView()
         {
-            IReportManager<UnAllocatedView> uaReportManager = new ReportManager<UnAllocatedView>("Report/deallocatedList");
-            IReportManagerView<UnAllocatedView> unAllocatedReportManagerView = new UnAllocatedReportManagerView<UnAllocatedView>(uaReportManager);
+            IReportManager<SeatUnAllocatedView> suaReportManager = new ReportManager<SeatUnAllocatedView>("Report/seatdeallocatedList");
+            IReportManagerView unAllocatedReportManagerView = new UnAllocatedReportManagerView(suaReportManager,null);
             IEntityManager<Employee> employeeManager = new EntityManager<Employee>("Employee");
             EmployeeManagerView employeeManagerView = new EmployeeManagerView(employeeManager);
 
@@ -41,7 +41,7 @@ namespace SeatManagementConsole.Views
             var empId = Convert.ToInt32(Console.ReadLine());
 
             //Report of Unallocated Seats to be shown here:
-            unAllocatedReportManagerView.Display();
+            unAllocatedReportManagerView.DisplaySeat();
 
             Console.Write("Enter A Seat Id: ");
             var entityId = Convert.ToInt32(Console.ReadLine());
@@ -53,11 +53,11 @@ namespace SeatManagementConsole.Views
 
         public async Task DeAllocateSeatView()
         {
-            IReportManager<Overview> aReportManager = new ReportManager<Overview>("Report/allocatedList");
-            IReportManagerView<Overview> allocatedReportManagerView = new AllocatedReportManagerView<Overview>(aReportManager);
+            IReportManager<SeatOverview> suaReportManager = new ReportManager<SeatOverview>("Report/seatallocatedList");
+            IReportManagerView allocatedReportManagerView = new AllocatedReportManagerView(suaReportManager,null);
 
             //Report of allocated seats to be shown here:
-            allocatedReportManagerView.Display();
+            allocatedReportManagerView.DisplaySeat();
 
             Console.Write("Enter A Seat Id: ");
             var entityId = Convert.ToInt32(Console.ReadLine());

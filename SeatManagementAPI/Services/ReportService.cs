@@ -7,23 +7,38 @@ namespace AssetManagementAPI.ControllerServices
 {
     public class ReportService : IReportService
     {
-        private readonly IRepository<Overview> _Allocatedcontext;
-        private readonly IRepository<UnAllocatedView> _unAllocatedcontext;
+        private readonly IRepository<SeatOverview> _seatAllocatedcontext;
+        private readonly IRepository<SeatUnAllocatedView> _seatUnAllocatedcontext;
+        private readonly IRepository<CabinOverview> _cabinAllocatedcontext;
+        private readonly IRepository<CabinUnAllocatedView> _cabinUnAllocatedcontext;
 
-        public ReportService(IRepository<Overview> Allocatedcontext, IRepository<UnAllocatedView> UnAllocatedcontext)
+        public ReportService(IRepository<SeatOverview> _seatAllocatedcontext, IRepository<SeatUnAllocatedView> _seatUnAllocatedcontext, 
+            IRepository<CabinOverview> _cabinAllocatedcontext, IRepository<CabinUnAllocatedView> _cabinUnAllocatedcontext )
         {
-            _Allocatedcontext = Allocatedcontext;
-            _unAllocatedcontext = UnAllocatedcontext;
+            this._seatAllocatedcontext = _seatAllocatedcontext;
+            this._seatUnAllocatedcontext = _seatUnAllocatedcontext;
+            this._cabinAllocatedcontext = _cabinAllocatedcontext;
+            this._cabinUnAllocatedcontext = _cabinUnAllocatedcontext;
         }
 
-        public Overview[] GetAllocatedList()
+        public SeatOverview[] GetSeatAllocatedList()
         {
-            return _Allocatedcontext.GetAll(); 
+            return _seatAllocatedcontext.GetAll(); 
         }
 
-        public UnAllocatedView[] GetUnAllocatedList()
+        public SeatUnAllocatedView[] GetSeatUnAllocatedList()
         {
-            return _unAllocatedcontext.GetAll();
+            return _seatUnAllocatedcontext.GetAll();
+        }
+
+        public CabinOverview[] GetCabinAllocatedList()
+        {
+            return _cabinAllocatedcontext.GetAll();
+        }
+
+        public CabinUnAllocatedView[] GetCabinUnAllocatedList()
+        {
+            return _cabinUnAllocatedcontext.GetAll();
         }
     }
 }

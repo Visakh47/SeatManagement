@@ -1,6 +1,8 @@
-﻿public interface IReportManagerView<T>
+﻿public interface IReportManagerView
 {
-    void Display();
+    void DisplaySeat();
+
+    void DisplayCabin();
 
     Task GenerateReportView();
 }

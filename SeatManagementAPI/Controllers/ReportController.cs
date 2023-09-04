@@ -16,16 +16,28 @@ namespace SeatManagementAPI.Controllers
             _reportService = reportService;
         }
 
-        [HttpGet("allocatedlist")]
-        public IActionResult GetAllocated()
+        [HttpGet("seatAllocatedlist")]
+        public IActionResult GetSeatAllocated()
         {
-           return Ok(_reportService.GetAllocatedList());
+           return Ok(_reportService.GetSeatAllocatedList());
         }
 
-        [HttpGet("deallocatedlist")] 
-        public IActionResult GetDealloactedList()
+        [HttpGet("seatDeallocatedlist")] 
+        public IActionResult GetSeatDealloactedList()
         { 
-            return Ok(_reportService.GetUnAllocatedList());
+            return Ok(_reportService.GetSeatUnAllocatedList());
+        }
+
+        [HttpGet("cabinAllocatedlist")]
+        public IActionResult GetCabinAllocated()
+        {
+            return Ok(_reportService.GetCabinAllocatedList());
+        }
+
+        [HttpGet("cabinDeallocatedlist")]
+        public IActionResult GetCabinDealloactedList()
+        {
+            return Ok(_reportService.GetCabinUnAllocatedList());
         }
     }
 }
