@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SeatManagementAPI.Custom_Exceptions;
 using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
@@ -30,18 +31,37 @@ namespace SeatManagementAPI.Controllers
 
         public City GetCityById(int id)
         {
-            return _cityRepository.GetById(id);
+            try
+            {
+                var city = _cityRepository.GetById(id);
+                if (city == null)
+                    throw new CityNotFoundException(id);
+                else
+                    return city;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
      
         public void EditCity(City city) {
-            var originalCity = _cityRepository.GetById(city.CityId);
-            if(originalCity == null) { throw new Exception("Not Found City"); }
+            try
+            {
+                var originalCity = _cityRepository.GetById(city.CityId);
+                if (originalCity == null) { throw new CityNotFoundException(city.CityId); }
 
-            originalCity.CityName = city.CityName;
-            originalCity.CityAbbreviation = city.CityAbbreviation;
+                originalCity.CityName = city.CityName;
+                originalCity.CityAbbreviation = city.CityAbbreviation;
 
-            _cityRepository.Update(originalCity); 
+                _cityRepository.Update(originalCity);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
        

@@ -63,6 +63,7 @@ namespace SeatManagementAPI.Controllers
                 Employee e = _employeeRepository.GetById(employeeId);
                 cabin.Employee = e;
                 cabin.Employee.isAllocated = true;
+                _employeeRepository.Update(e);
             }
             _cabinRepository.Update(cabin);
         }
@@ -75,6 +76,7 @@ namespace SeatManagementAPI.Controllers
                 Employee e = _employeeRepository.GetById(cabin.Employee.EmployeeId);
                 cabin.Employee = e;
                 cabin.Employee.isAllocated = false;
+                _employeeRepository.Update(e);
             }
             cabin.EmployeeId = null;
             cabin.Employee = null;
@@ -84,7 +86,8 @@ namespace SeatManagementAPI.Controllers
         public void AddManyCabins(int totalCabins, int facilityId)
         {
             List<Cabin> emptyCabins = new List<Cabin>();
-            for (int i = 1; i <= totalCabins; i++)
+            int cabinCount = _cabinRepository.GetAll().Where(x => x.FacilityId == facilityId).ToList().Count();
+            for (int i = cabinCount+1; i <= totalCabins+cabinCount; i++)
             {
 
                 Cabin emptyCabin = new Cabin

@@ -24,13 +24,13 @@ public class AllocatedReportManagerView : IReportManagerView
 
     public async void DisplayCabin()
     {
-        var unAllocatedCabinReports = caReportManager.GetAll().Result;
+        var allocatedCabinReports = caReportManager.GetAll().Result;
 
-        Console.WriteLine("List of Unallocated Cabins:");
-        Console.WriteLine("Cabin Id. City Abbreviation - Building Abbreviation - FacilityFloor - FacilityName - CabinCode\n");
-        foreach (var report in unAllocatedCabinReports)
+        Console.WriteLine("List of Allocated Cabins:");
+        Console.WriteLine("Cabin Id. City Abbreviation - Building Abbreviation - FacilityFloor - FacilityName - CabinCode -> EmployeeName\n");
+        foreach (var report in allocatedCabinReports)
         {
-            Console.WriteLine($"{report.CabinId}. {report.CityAbbreviation} - {report.BuildingAbbreviation} - {report.FacilityFloor} - {report.FacilityName} - {report.CabinCode}");
+            Console.WriteLine($"{report.CabinId}. {report.CityAbbreviation} - {report.BuildingAbbreviation} - {report.FacilityFloor} - {report.FacilityName} - {report.CabinCode} -> {report.EmployeeName}");
         }
     }
 

@@ -34,7 +34,14 @@ namespace SeatManagementAPI.Controllers
         [Route("{id}")]
         public IActionResult GetById(int id)
         {
-            return Ok(_facilityService.GetFacilityById(id));
+            try
+            {
+                return Ok(_facilityService.GetFacilityById(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]

@@ -52,14 +52,14 @@ namespace SeatManagementAPI.Controllers
         }
 
 
-        [HttpPut]
+        [HttpPatch]
         [Route("allocate")]
         public IActionResult Allocate(int seatId, int EmployeeId) {
             _seatService.SeatAllocate(seatId,EmployeeId);
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("deallocate")]
         public IActionResult Deallocate(int seatId)
         {
@@ -69,9 +69,17 @@ namespace SeatManagementAPI.Controllers
 
         [HttpPost]
         [Route("addbatch")]
-        public IActionResult AddBatch(int totalSeats, int FacilityId) { 
-            _seatService.AddManySeats(totalSeats, FacilityId);
-            return Ok();
+        public IActionResult AddBatch(int totalSeats, int FacilityId)
+        {
+            try
+            {
+                _seatService.AddManySeats(totalSeats, FacilityId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

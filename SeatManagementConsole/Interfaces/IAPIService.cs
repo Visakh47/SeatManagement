@@ -14,5 +14,6 @@ namespace SeatManagementConsole.Interfaces
         Task<List<T>> GetAll<T>();
         Task<T> GetById<T>(int id);
         void PutWithExtension<T>(string extension);
+        void PatchWithExtension<T>(string extension);
     }
 }

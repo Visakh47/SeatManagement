@@ -24,7 +24,29 @@ namespace SeatManagementConsole
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsync(baseUrl + apiEndpoint + extension, null);
+                HttpResponseMessage response = client.PostAsync(baseUrl + apiEndpoint + extension, null).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    //Successful
+                }
+                else
+                {
+                    Console.WriteLine($"Error: {response.StatusCode} - {response.Content.ReadAsStringAsync().Result}");
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("An error occurred in API Configurations");
+            }
+
+        }
+
+        public async void PatchWithExtension<T>(string extension)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PatchAsync(baseUrl + apiEndpoint + extension, null);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -33,13 +55,13 @@ namespace SeatManagementConsole
                 else
                 {
                     Console.WriteLine($"Error: {response.StatusCode} - {response.ReasonPhrase}");
-                    
+
                 }
             }
             catch (Exception)
             {
                 Console.WriteLine("An error occurred in API Configurations");
-           
+
             }
 
         }
@@ -62,7 +84,7 @@ namespace SeatManagementConsole
                         {
                             string responseContent = await response.Content.ReadAsStringAsync();
                             int? responseId = JsonConvert.DeserializeObject<int>(responseContent);
-                            Console.WriteLine($"Created successfully.");
+                            //Console.WriteLine($"Created successfully.");
                             return responseId;
                         }
                         catch (Exception ex) {
@@ -149,7 +171,6 @@ namespace SeatManagementConsole
         //Generic Put
         public async void PutWithExtension<T>(string extension)
         {
-            
                 try
                 {
                     HttpResponseMessage response = await client.PutAsync(baseUrl + apiEndpoint + extension, null);

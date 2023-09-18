@@ -3,16 +3,19 @@ using SeatManagementAPI.Models.DTO;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Interfaces;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using SeatManagementAPI.Custom_Exceptions;
 
 public class SeatService : ISeatService
 {
     private readonly IRepository<Seat> _seatRepository;
     private readonly IRepository<Employee> _employeeRepository;
+    private readonly IRepository<Facility> _facilityRepository;
 
-    public SeatService(IRepository<Seat> seatRepository, IRepository<Employee> employeeRepository)
+    public SeatService(IRepository<Seat> seatRepository, IRepository<Employee> employeeRepository, IRepository<Facility> facilityRepository)
     {
         _seatRepository = seatRepository;
         _employeeRepository = employeeRepository;
+        _facilityRepository = facilityRepository;
     }
 
 
@@ -69,6 +72,7 @@ public class SeatService : ISeatService
             Employee e = _employeeRepository.GetById(employeeId);
             seat.Employee = e;
             seat.Employee.isAllocated = true;
+            _employeeRepository.Update(e);
         }
         _seatRepository.Update(seat);
     }
@@ -82,6 +86,7 @@ public class SeatService : ISeatService
             Employee e = _employeeRepository.GetById(seat.Employee.EmployeeId);
             seat.Employee = e;
             seat.Employee.isAllocated = false;
+            _employeeRepository.Update(e);
         }
         seat.Employee = null;
         seat.EmployeeId = null;
@@ -90,9 +95,14 @@ public class SeatService : ISeatService
 
     public void AddManySeats(int totalSeats, int facilityId) {
         List<Seat> emptySeats = new List<Seat>();
-        for (int i = 1; i <= totalSeats; i++)
+        if (_facilityRepository.GetById(facilityId) == null)
         {
-            
+            throw new FacilityNotFoundException(facilityId);
+        }
+        int seatCount = _seatRepository.GetAll().Where(x => x.FacilityId == facilityId).ToList().Count();
+        for (int i = seatCount + 1; i <= totalSeats + seatCount; i++)
+        {
+
             Seat emptySeat = new Seat
             {
                 FacilityId = facilityId,
@@ -102,6 +112,7 @@ public class SeatService : ISeatService
         }
 
         _seatRepository.AddMany(emptySeats);
+        
     }
 
 }

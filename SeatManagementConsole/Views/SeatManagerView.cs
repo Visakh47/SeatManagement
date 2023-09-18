@@ -24,7 +24,14 @@ namespace SeatManagementConsole.Views
             var totalSeats = Convert.ToInt32(Console.ReadLine());
 
             string extension = $"/addbatch?FacilityId={facilityId}&totalSeats={totalSeats}";
-            seatManager.AddMany(extension);
+            try
+            {
+                seatManager.AddMany(extension);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public async Task AllocateSeatView()

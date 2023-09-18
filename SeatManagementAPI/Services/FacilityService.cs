@@ -2,6 +2,7 @@
 using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models.DTO;
 using SeatManagementAPI.Models;
+using SeatManagementAPI.Custom_Exceptions;
 
 public class FacilityService : IFacilityService
 {
@@ -35,21 +36,32 @@ public class FacilityService : IFacilityService
 
     public Facility GetFacilityById(int id)
     {
-        return _facilityRepository.GetById(id);
+        var facility = _facilityRepository.GetById(id);
+        if (facility == null)
+            throw new FacilityNotFoundException(id);
+        else
+            return facility;
     }
 
  
     public void EditFacility(Facility facility)
     {
-        var originalFacility = _facilityRepository.GetById(facility.FacilityId);
-        if (originalFacility == null)
+        try
         {
-            throw new Exception("Not Found Facility");
+            var originalFacility = _facilityRepository.GetById(facility.FacilityId);
+            if (originalFacility == null)
+            {
+                throw new FacilityNotFoundException(facility.FacilityId);
+            }
+
+            originalFacility.FacilityName = facility.FacilityName;
+
+            _facilityRepository.Update(originalFacility);
         }
-
-        originalFacility.FacilityName = facility.FacilityName;
-
-        _facilityRepository.Update(originalFacility);
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
 
 

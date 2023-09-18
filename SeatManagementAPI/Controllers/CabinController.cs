@@ -53,7 +53,7 @@ namespace SeatManagementAPI.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("allocate")]
         public IActionResult Allocate(int cabinId, int EmployeeId)
         {
@@ -61,7 +61,7 @@ namespace SeatManagementAPI.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("deallocate")]
         public IActionResult Deallocate(int cabinId)
         {

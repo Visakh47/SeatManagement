@@ -8,9 +8,9 @@ public class UnAllocatedReportManagerView : IReportManagerView
     private readonly IReportManager<SeatUnAllocatedView> suaReportManager;
     private readonly IReportManager<CabinUnAllocatedView> cuaReportManager;
 
-    public UnAllocatedReportManagerView(IReportManager<SeatUnAllocatedView> uaReportManager, IReportManager<CabinUnAllocatedView> cuaReportManager)
+    public UnAllocatedReportManagerView(IReportManager<SeatUnAllocatedView> suaReportManager, IReportManager<CabinUnAllocatedView> cuaReportManager)
     {
-        this.suaReportManager = uaReportManager;
+        this.suaReportManager = suaReportManager;
         this.cuaReportManager = cuaReportManager;
     }
     public async void DisplaySeat() {
