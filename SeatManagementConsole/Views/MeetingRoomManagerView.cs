@@ -26,7 +26,7 @@ namespace SeatManagementConsole.Views
             int assetId;
             int meetingRoomId;
 
-            Console.WriteLine("How many number of Meeting Rooms does the facility have?");
+            Console.Write("How many number of Meeting Rooms does the facility have:");
             var totalMeetingRooms = Convert.ToInt32(Console.ReadLine());
 
             Console.WriteLine("Meeting Rooms Creating!");
@@ -59,7 +59,7 @@ namespace SeatManagementConsole.Views
 
                         MeetingRoomAssets meetingRoomAssets = new MeetingRoomAssets { AssetId = assetId, MeetingRoomId = meetingRoomId, NoOfItems = assetQty };
 
-                        meetingRoomAssetsManager.Add(meetingRoomAssets);
+                        await meetingRoomAssetsManager.Add(meetingRoomAssets);
                     }
 
                 } while (assetId!=0);

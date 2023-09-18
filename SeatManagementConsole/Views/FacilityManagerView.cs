@@ -68,6 +68,14 @@ namespace SeatManagementConsole.Views
                 Console.WriteLine($"\n| {facility.FacilityId} | {facility.FacilityName} | {facility.FacilityFloor} | {facility.City.CityName} | {facility.Building.BuildingName} |\n");
             }
         }
+
+        public async Task OnBoardFacilityView(FacilityManagerView facilityManagerView, SeatManagerView seatManagerView, CabinManagerView cabinManagerView, MeetingRoomManagerView meetingRoomManagerView)
+        {
+            int facilityId = await facilityManagerView.CreateFacilityView();
+            seatManagerView.AddBulkSeatsView(facilityId);
+            cabinManagerView.AddBulkCabinsView(facilityId);
+            await meetingRoomManagerView.AddBulkMeetingRoomView(facilityId);
+        }
     }
     
 }

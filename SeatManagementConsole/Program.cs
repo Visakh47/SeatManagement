@@ -58,7 +58,7 @@ class Program
             Console.WriteLine("***************************************************");
             Console.WriteLine("                  MAIN MENU");
             Console.WriteLine("***************************************************\n");
-            Console.WriteLine("1.Onboard Facility\n2.Onboard Seats\n3.Add Employees\n4.Seat Allocation\n5.Seat Deallocation\n6.Cabin Allocation\n7.Cabin Deallocation\n8.Report Generation\n9. Exit\n");
+            Console.WriteLine("1.Onboard Facility\n2.Onboard Seats\n3.Add Employees\n4.Seat Allocation\n5.Seat Deallocation\n6.Cabin Allocation\n7.Cabin Deallocation\n8.Report Generation\n9.Exit\n");
             Console.WriteLine("***************************************************");
             Console.Write("Choose your option: ");
             int op1 = Convert.ToInt32(Console.ReadLine());
@@ -68,21 +68,13 @@ class Program
             {
                 case 1:
                     {
-
-                        int facilityId = await facilityManagerView.CreateFacilityView();
-                        seatManagerView.AddBulkSeatsView(facilityId);
-                        cabinManagerView.AddBulkCabinsView(facilityId);
-                        await meetingRoomManagerView.AddBulkMeetingRoomView(facilityId);
+                        await facilityManagerView.OnBoardFacilityView(facilityManagerView, seatManagerView, cabinManagerView, meetingRoomManagerView);
                         break;
                     }
 
                 case 2:
                     {
-                        await facilityManagerView.AllFacilitiesView();
-                        //Have to create a input provider for this facilityId;
-                        Console.Write("Enter a Facility Where You Wish To Onboard Seats?");
-                        int facilityId = Convert.ToInt32(Console.ReadLine());
-                        seatManagerView.AddBulkSeatsView(facilityId);
+                        await seatManagerView.OnBoardSeatsView(facilityManagerView, seatManagerView);
                         break;
                     }
 

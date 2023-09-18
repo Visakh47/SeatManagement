@@ -2,7 +2,7 @@
 using SeatManagementConsole.Interfaces;
 using SeatManagementConsole.Managers;
 
-internal class CabinManagerView
+public class CabinManagerView
 {
     private IEntityManager<Cabin> cabinManager;
 

@@ -18,7 +18,7 @@ namespace SeatManagementAPI.Controllers
         }
 
    
-        public Cabin[] GetAllCabins()
+        public Cabin[] GetAllCabins()    
         {
             return _cabinRepository.GetAll();
         }

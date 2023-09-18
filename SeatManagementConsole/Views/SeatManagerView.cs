@@ -20,7 +20,7 @@ namespace SeatManagementConsole.Views
         public async void AddBulkSeatsView(int facilityId)
         {
 
-            Console.Write("How many number of seats does the facility have: ");
+            Console.Write("How many number of seats does the facility require: ");
             var totalSeats = Convert.ToInt32(Console.ReadLine());
 
             string extension = $"/addbatch?FacilityId={facilityId}&totalSeats={totalSeats}";
@@ -73,5 +73,16 @@ namespace SeatManagementConsole.Views
 
             SeatAllocater.DeAllocate(entityId);
         }
+
+        public async Task OnBoardSeatsView(FacilityManagerView facilityManagerView, SeatManagerView seatManagerView) 
+        {
+            await facilityManagerView.AllFacilitiesView();
+
+            Console.Write("Enter a Facility Where You Wish To Onboard Seats: ");
+            int facilityId = Convert.ToInt32(Console.ReadLine());
+
+            seatManagerView.AddBulkSeatsView(facilityId);
+        }
+
     }
 }
