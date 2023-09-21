@@ -4,6 +4,7 @@ using SeatManagementConsole.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,15 +52,24 @@ namespace SeatManagementConsole.Views
                 {
                     assetId = await assetManagerView.CreateOrAddExistingAssetView();
 
-                    if (assetId != 0)
+                    try
                     {
-                        Console.Write($"How many of these assets do you need for M{i:D3}?:");
+                        if (assetId != 0)
+                        {
+                            Console.Write($"How many of these assets do you need for M{i:D3}?:");
 
-                        int assetQty = Convert.ToInt32(Console.ReadLine());
+                            int assetQty = Convert.ToInt32(Console.ReadLine());
 
-                        MeetingRoomAssets meetingRoomAssets = new MeetingRoomAssets { AssetId = assetId, MeetingRoomId = meetingRoomId, NoOfItems = assetQty };
+                            MeetingRoomAssets meetingRoomAssets = new MeetingRoomAssets { AssetId = assetId, MeetingRoomId = meetingRoomId, NoOfItems = assetQty };
 
-                        await meetingRoomAssetsManager.Add(meetingRoomAssets);
+                            int assetAdded = await meetingRoomAssetsManager.Add(meetingRoomAssets);
+
+                            Console.WriteLine($"Asset {assetId} added with map: {assetAdded}");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //Handle Exception
                     }
 
                 } while (assetId!=0);

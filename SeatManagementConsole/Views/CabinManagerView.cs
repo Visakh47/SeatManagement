@@ -15,7 +15,7 @@ public class CabinManagerView
     {
         Console.Write("How many number of cabins does the facility have:");
         var totalCabins = Convert.ToInt32(Console.ReadLine());
-        string extension = $"/addbatch?FacilityId={facilityId}&totalCabins={totalCabins}";
+        string extension = $"?FacilityId={facilityId}&totalCabins={totalCabins}";
         cabinManager.AddMany(extension);
     }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models;
@@ -6,8 +7,6 @@ using SeatManagementAPI.Models.DTO;
 
 namespace SeatManagementAPI.Controllers
 {
- 
-
     [Route("api/[controller]")]
     [ApiController]
     public class CabinController : ControllerBase
@@ -23,13 +22,6 @@ namespace SeatManagementAPI.Controllers
         public IActionResult Index()
         {
             return Ok(_cabinService.GetAllCabins());
-        }
-
-        [HttpPost]
-        public IActionResult Add(CabinDTO cabin)
-        {
-            _cabinService.AddCabin(cabin);
-            return Ok();
         }
 
         [HttpGet]
@@ -54,26 +46,26 @@ namespace SeatManagementAPI.Controllers
         }
 
         [HttpPatch]
-        [Route("allocate")]
-        public IActionResult Allocate(int cabinId, int EmployeeId)
+        [Route("{id}")]
+        public IActionResult Allocate(int id, int EmployeeId)
         {
-            _cabinService.CabinAllocate(cabinId, EmployeeId);
-            return Ok();
-        }
-
-        [HttpPatch]
-        [Route("deallocate")]
-        public IActionResult Deallocate(int cabinId)
-        {
-            _cabinService.CabinDeallocate(cabinId);
+            if (EmployeeId == 0)
+                _cabinService.CabinDeallocate(id); 
+            else
+                _cabinService.CabinAllocate(id, EmployeeId);
             return Ok();
         }
 
         [HttpPost]
-        [Route("addbatch")]
-        public IActionResult AddBatch(int totalCabins, int FacilityId)
+        public IActionResult Add(int totalCabins, int FacilityId)
         {
-            _cabinService.AddManyCabins(totalCabins, FacilityId);
+            try
+            {
+                _cabinService.AddManyCabins(totalCabins, FacilityId);
+            }
+            catch (Exception ex) {
+                return BadRequest(ex.Message);
+            }
             return Ok();
         }
     }

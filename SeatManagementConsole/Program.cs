@@ -27,6 +27,7 @@ class Program
         IEntityManager<Employee> employeeManager = new EntityManager<Employee>("Employee");
         IEntityManager<MeetingRoom> meetingRoomManager = new EntityManager<MeetingRoom>("MeetingRoom");
         IEntityManager<Asset> assetManager = new EntityManager<Asset>("Asset");
+        IEntityManager<User> userManager = new EntityManager<User>("User");
 
         IReportManager<SeatUnAllocatedView> suaReportManager = new ReportManager<SeatUnAllocatedView>("Report/seatdeallocatedList");
         IReportManager<SeatOverview> saReportManager = new ReportManager<SeatOverview>("Report/seatallocatedList");
@@ -51,6 +52,14 @@ class Program
         Console.WriteLine("\t\tSEAT ALLOCATION SOFTWARE\t\t");
         Console.WriteLine("---------------------------------------------------------\n\n");
 
+        await meetingRoomManagerView.AddBulkMeetingRoomView(5002);
+        //Console.WriteLine("LOGIN HERE");
+        //Console.WriteLine("Enter Username:");
+        //string username = Console.ReadLine();
+        //Console.WriteLine("Enter Password:");
+        //string password = Console.ReadLine();
+        //User user = new User { username = username, password = password};
+        //await userManager.Add(user);
         do
         {
 

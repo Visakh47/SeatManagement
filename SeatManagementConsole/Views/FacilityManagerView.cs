@@ -13,8 +13,6 @@ namespace SeatManagementConsole.Views
     public class FacilityManagerView
     {
         IFacilityManager facilityManager;
-
-
         public FacilityManagerView(IFacilityManager facilityManager)
         {
             this.facilityManager = facilityManager;

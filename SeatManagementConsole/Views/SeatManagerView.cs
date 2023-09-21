@@ -23,7 +23,7 @@ namespace SeatManagementConsole.Views
             Console.Write("How many number of seats does the facility require: ");
             var totalSeats = Convert.ToInt32(Console.ReadLine());
 
-            string extension = $"/addbatch?FacilityId={facilityId}&totalSeats={totalSeats}";
+            string extension = $"?FacilityId={facilityId}&totalSeats={totalSeats}";
             try
             {
                 seatManager.AddMany(extension);

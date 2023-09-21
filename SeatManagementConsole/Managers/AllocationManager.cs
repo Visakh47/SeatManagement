@@ -19,13 +19,13 @@ namespace SeatManagementConsole.Managers
         }
         public async void Allocate(int entityId, int employeeId)
         {
-            string extension = $"/allocate?{_apiEndPoint.ToLower()}Id={entityId}&EmployeeId={employeeId}";
+            string extension = $"/{entityId}?EmployeeId={employeeId}";
             _allocationAPI.PatchWithExtension<T>(extension);
         }
 
         public async void DeAllocate(int entityId)
         {
-            string extension = $"/deallocate?{_apiEndPoint.ToLower()}Id={entityId}";
+            string extension = $"/{entityId}";
             _allocationAPI.PatchWithExtension<T>(extension);
         }
     }

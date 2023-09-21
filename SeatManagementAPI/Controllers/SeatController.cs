@@ -23,13 +23,6 @@ namespace SeatManagementAPI.Controllers
             return Ok(_seatService.GetAllSeats());
         }
 
-        [HttpPost]
-        public IActionResult Add(SeatDTO seat)
-        {
-            _seatService.AddSeat(seat);
-            return Ok();
-        }
-
         [HttpGet]
         [Route("{id}")]
         public IActionResult GetById(int id)
@@ -52,24 +45,21 @@ namespace SeatManagementAPI.Controllers
         }
 
 
+
         [HttpPatch]
-        [Route("allocate")]
-        public IActionResult Allocate(int seatId, int EmployeeId) {
-            _seatService.SeatAllocate(seatId,EmployeeId);
+        [Route("{id}")]
+        public IActionResult Allocate(int id, int EmployeeId)
+        {
+            if (EmployeeId == 0)
+                _seatService.SeatDeallocate(id);
+            else
+                _seatService.SeatAllocate(id, EmployeeId);
             return Ok();
         }
 
-        [HttpPatch]
-        [Route("deallocate")]
-        public IActionResult Deallocate(int seatId)
-        {
-            _seatService.SeatDeallocate(seatId);
-            return Ok();
-        }
 
         [HttpPost]
-        [Route("addbatch")]
-        public IActionResult AddBatch(int totalSeats, int FacilityId)
+        public IActionResult Add(int totalSeats, int FacilityId)
         {
             try
             {

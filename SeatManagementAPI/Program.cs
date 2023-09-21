@@ -47,6 +47,26 @@ builder.Services.AddSingleton<IMeetingRoomAssetsService, MeetingRoomAssetsServic
 builder.Services.AddSingleton<ISeatService, SeatService>();
 builder.Services.AddSingleton<IReportService, ReportService>();
 
+builder.Services.AddAuthentication("MyCookieAuth").AddCookie("MyCookieAuth", options =>
+{
+    options.Cookie.Name = "MyCookieAuth";
+    //options.LoginPath = "/Auth/LoginASync";
+    //options.AccessDeniedPath = "/unauthorized";
+    options.ExpireTimeSpan = TimeSpan.FromSeconds(300);
+    options.Events.OnRedirectToLogin = context =>
+    {
+        context.Response.StatusCode = 401;
+        return Task.CompletedTask;
+    };
+});
+
+
+builder.Services.AddAuthorization(options =>
+    {
+        options.AddPolicy("User",
+            policy => policy.RequireRole("User"));
+    }
+);
 
 
 var app = builder.Build();
@@ -59,7 +79,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

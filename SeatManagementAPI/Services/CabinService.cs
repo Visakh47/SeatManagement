@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SeatManagementAPI.Custom_Exceptions;
 using SeatManagementAPI.Interfaces;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Models.DTO;
@@ -10,11 +11,13 @@ namespace SeatManagementAPI.Controllers
     {
         private readonly IRepository<Cabin> _cabinRepository;
         private readonly IRepository<Employee> _employeeRepository;
+        private readonly IRepository<Facility> _facilityRepository;
 
-        public CabinService(IRepository<Cabin> cabinRepository, IRepository<Employee> employeeRepository)
+        public CabinService(IRepository<Cabin> cabinRepository, IRepository<Employee> employeeRepository, IRepository<Facility> facilityRepository)
         {
             _cabinRepository = cabinRepository;
             _employeeRepository = employeeRepository;
+            _facilityRepository = facilityRepository;
         }
 
    
@@ -86,6 +89,10 @@ namespace SeatManagementAPI.Controllers
         public void AddManyCabins(int totalCabins, int facilityId)
         {
             List<Cabin> emptyCabins = new List<Cabin>();
+            if (_facilityRepository.GetById(facilityId) == null)
+            {
+                throw new FacilityNotFoundException(facilityId);
+            }
             int cabinCount = _cabinRepository.GetAll().Where(x => x.FacilityId == facilityId).ToList().Count();
             for (int i = cabinCount+1; i <= totalCabins+cabinCount; i++)
             {

@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using SeatManagementAPI.Models.DTO;
 using SeatManagementAPI.Models;
 using SeatManagementAPI.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Authentication;
 
 namespace SeatManagementAPI.Controllers
 {
+    [Authorize(Policy = "User")]
     [Route("api/[controller]")]
     [ApiController]
     public class FacilityController : ControllerBase
